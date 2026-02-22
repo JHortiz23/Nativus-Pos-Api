@@ -70,3 +70,4 @@ Thumbs.db
 # Docker local volumes (si los usas)
 docker-data/
 .pgdata/
+/generated/prisma
