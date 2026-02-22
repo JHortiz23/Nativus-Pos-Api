@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    container_name: nativus-pos_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: posuser
+      POSTGRES_PASSWORD: pospass
+      POSTGRES_DB: posdb
+    ports:
+      - "5432:5432"

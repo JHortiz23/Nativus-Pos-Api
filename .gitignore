@@ -1,0 +1,72 @@
+# compiled output
+/dist
+/build
+/out
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Tests
+/coverage
+/.nyc_output
+
+# dotenv environment variable files
+.env
+.env.local
+.env.*
+!.env.example
+
+# temp directory
+.temp
+.tmp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# TypeScript / tool caches
+*.tsbuildinfo
+.cache/
+
+# Prisma / local DB files (por si aparecen)
+prisma/*.db
+prisma/*.db-journal
+prisma/.cache/
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Docker local volumes (si los usas)
+docker-data/
+.pgdata/
