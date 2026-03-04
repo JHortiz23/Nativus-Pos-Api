@@ -26,14 +26,14 @@ enum OrderStatus {
 model User {
   id        Int      @id @default(autoincrement())
   name      String
-  role      String   // admin, cashier, waiter, kitchen
+  role      String // admin, cashier, waiter, kitchen
   createdAt DateTime @default(now())
   // orders    Order[]
 }
 
 model Table {
   id        Int      @id @default(autoincrement())
-  name      String   // "Mesa 1"
+  name      String // "Mesa 1"
   isOpen    Boolean  @default(false)
   createdAt DateTime @default(now())
   // orders    Order[]
@@ -42,7 +42,7 @@ model Table {
 model Product {
   id        Int      @id @default(autoincrement())
   name      String
-  price     Decimal  @db.Decimal(10,2)
+  price     Decimal  @db.Decimal(10, 2)
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   // items     OrderItem[]
