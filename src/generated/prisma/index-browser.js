@@ -120,26 +120,139 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  role: 'role',
+  email: 'email',
+  phone: 'phone',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.RestaurantScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  name: 'name',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  name: 'name',
+  email: 'email',
+  pin: 'pin',
+  role: 'role',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DiningAreaScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  name: 'name',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
 };
 
 exports.Prisma.TableScalarFieldEnum = {
   id: 'id',
+  restaurantId: 'restaurantId',
+  diningAreaId: 'diningAreaId',
   name: 'name',
-  isOpen: 'isOpen',
+  isActive: 'isActive',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  name: 'name',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
+  restaurantId: 'restaurantId',
+  categoryId: 'categoryId',
   name: 'name',
+  description: 'description',
   price: 'price',
-  isActive: 'isActive',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  tableId: 'tableId',
+  userId: 'userId',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  closedAt: 'closedAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  qty: 'qty',
+  unitPrice: 'unitPrice',
+  notes: 'notes',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ShiftScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  openedById: 'openedById',
+  openedAt: 'openedAt',
+  isOpen: 'isOpen',
+  closedAt: 'closedAt',
+  closedById: 'closedById',
+  openingCash: 'openingCash',
+  closingCash: 'closingCash',
+  notes: 'notes'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  shiftId: 'shiftId',
+  userId: 'userId',
+  tableId: 'tableId',
+  customerName: 'customerName',
+  createdAt: 'createdAt',
+  subtotal: 'subtotal',
+  tax: 'tax',
+  total: 'total',
+  paymentMethod: 'paymentMethod',
+  orderId: 'orderId'
+};
+
+exports.Prisma.InvoiceItemScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  productId: 'productId',
+  qty: 'qty',
+  unitPrice: 'unitPrice',
+  lineTotal: 'lineTotal',
+  notes: 'notes'
+};
+
+exports.Prisma.InvoiceVoidScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  voidedAt: 'voidedAt',
+  voidedById: 'voidedById',
+  reason: 'reason',
+  authorizedById: 'authorizedById'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,11 +265,49 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  CASHIER: 'CASHIER',
+  WAITER: 'WAITER',
+  KITCHEN: 'KITCHEN'
+};
+
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  OPEN: 'OPEN',
+  SENT_TO_KITCHEN: 'SENT_TO_KITCHEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  READY: 'READY',
+  SERVED: 'SERVED',
+  CANCELED: 'CANCELED',
+  CLOSED: 'CLOSED'
+};
+
+exports.PaymentMethod = exports.$Enums.PaymentMethod = {
+  CASH: 'CASH',
+  CARD: 'CARD',
+  TRANSFER: 'TRANSFER',
+  MIXED: 'MIXED'
+};
 
 exports.Prisma.ModelName = {
+  Client: 'Client',
+  Restaurant: 'Restaurant',
   User: 'User',
+  DiningArea: 'DiningArea',
   Table: 'Table',
-  Product: 'Product'
+  Category: 'Category',
+  Product: 'Product',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Shift: 'Shift',
+  Invoice: 'Invoice',
+  InvoiceItem: 'InvoiceItem',
+  InvoiceVoid: 'InvoiceVoid'
 };
 
 /**

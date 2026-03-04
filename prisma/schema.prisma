@@ -13,37 +13,298 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  OWNER
+  ADMIN
+  CASHIER
+  WAITER
+  KITCHEN
+}
+
 enum OrderStatus {
-  CREATED
+  OPEN
   SENT_TO_KITCHEN
   IN_PROGRESS
   READY
   SERVED
-  PAID
   CANCELED
+  CLOSED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  TRANSFER
+  MIXED
+}
+
+model Client {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?  @unique
+  phone     String?
+  createdAt DateTime @default(now())
+
+  restaurants Restaurant[]
+}
+
+model Restaurant {
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  client    Client   @relation(fields: [clientId], references: [id])
+
+  name      String
+  address   String?
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(true)
+
+  users       User[]
+  diningAreas DiningArea[]
+  tables      Table[]
+  categories  Category[]
+  products    Product[]
+  orders      Order[]
+  invoices    Invoice[]
+  shifts      Shift[]
+
+  @@index([clientId])
+  @@unique([clientId, name])
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
   name      String
-  role      String   // admin, cashier, waiter, kitchen
+  email     String?
+  pin       String?   // optional quick-login PIN for POS
+  role      UserRole
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+
+  openedShifts    Shift[]       @relation("ShiftOpenedBy")
+  closedShifts    Shift[]       @relation("ShiftClosedBy")
+  orders          Order[]
+  invoices        Invoice[]
+  invoiceVoids    InvoiceVoid[] @relation("VoidedBy")
+  authorizedVoids InvoiceVoid[] @relation("AuthorizedBy")
+
+  @@index([restaurantId])
+  @@unique([restaurantId, email])
+  @@unique([restaurantId, pin])
+}
+
+model DiningArea {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  name      String   // "Salón 1", "Salón 2", "Terraza", "Barra 1", etc.
   createdAt DateTime @default(now())
-  // orders    Order[]
+  isActive  Boolean  @default(true)
+
+  tables Table[]
+
+  @@index([restaurantId])
+  @@unique([restaurantId, name])
 }
 
 model Table {
-  id        Int      @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  diningAreaId Int
+  diningArea   DiningArea @relation(fields: [diningAreaId], references: [id])
+
   name      String   // "Mesa 1"
-  isOpen    Boolean  @default(false)
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
-  // orders    Order[]
+
+  orders   Order[]
+  invoices Invoice[]
+
+  @@index([restaurantId])
+  @@index([restaurantId, diningAreaId])
+  // allows "Mesa 1" in Salón 1 and also "Mesa 1" in Terraza without conflict
+  @@unique([restaurantId, diningAreaId, name])
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  name      String
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(true)
+
+  products Product[]
+
+  @@index([restaurantId])
+  @@unique([restaurantId, name])
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Decimal  @db.Decimal(10,2)
-  isActive  Boolean  @default(true)
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
+  isActive    Boolean  @default(true)
+
+  orderItems   OrderItem[]
+  invoiceItems InvoiceItem[]
+
+  @@index([restaurantId])
+  @@index([restaurantId, categoryId])
+  @@unique([restaurantId, categoryId, name])
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  tableId Int
+  table   Table @relation(fields: [tableId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  status    OrderStatus @default(OPEN)
+  notes     String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  closedAt  DateTime?
+
+  items   OrderItem[]
+  invoice Invoice?
+
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, tableId])
+  @@index([restaurantId, userId])
+}
+
+model OrderItem {
+  id      Int   @id @default(autoincrement())
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  qty       Int
+  unitPrice Decimal @db.Decimal(10, 2) // frozen at time of order
+  notes     String?
   createdAt DateTime @default(now())
-  // items     OrderItem[]
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Shift {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  openedById Int
+  openedBy   User @relation("ShiftOpenedBy", fields: [openedById], references: [id])
+
+  openedAt DateTime @default(now())
+  isOpen   Boolean  @default(true)
+
+  closedAt   DateTime?
+  closedById Int?
+  closedBy   User? @relation("ShiftClosedBy", fields: [closedById], references: [id])
+
+  openingCash Decimal? @db.Decimal(10, 2)
+  closingCash Decimal? @db.Decimal(10, 2)
+  notes       String?
+
+  invoices Invoice[]
+
+  @@index([restaurantId, isOpen])
+  @@index([restaurantId, openedAt])
+}
+
+model Invoice {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  shiftId Int
+  shift   Shift @relation(fields: [shiftId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  tableId Int?
+  table   Table? @relation(fields: [tableId], references: [id])
+
+  customerName String? // can be null; UI can default to "Cliente"
+  createdAt    DateTime @default(now())
+
+  subtotal Decimal @db.Decimal(10, 2)
+  tax      Decimal @db.Decimal(10, 2) @default(0)
+  total    Decimal @db.Decimal(10, 2)
+
+  paymentMethod PaymentMethod @default(CASH)
+
+  // optional: invoice created from an order
+  orderId Int?  @unique
+  order   Order? @relation(fields: [orderId], references: [id])
+
+  items InvoiceItem[]
+  void  InvoiceVoid?
+
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, userId, createdAt])
+  @@index([restaurantId, shiftId])
+}
+
+model InvoiceItem {
+  id        Int @id @default(autoincrement())
+  invoiceId Int
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  qty       Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  lineTotal Decimal @db.Decimal(10, 2)
+  notes     String?
+
+  @@index([invoiceId])
+  @@index([productId])
+}
+
+model InvoiceVoid {
+  id        Int @id @default(autoincrement())
+  invoiceId Int @unique
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  voidedAt DateTime @default(now())
+
+  voidedById Int
+  voidedBy   User @relation("VoidedBy", fields: [voidedById], references: [id])
+
+  reason String
+
+  authorizedById Int
+  authorizedBy   User @relation("AuthorizedBy", fields: [authorizedById], references: [id])
+
+  @@index([voidedAt])
+  @@index([voidedById])
+  @@index([authorizedById])
 }
