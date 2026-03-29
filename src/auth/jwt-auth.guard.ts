@@ -9,7 +9,7 @@ import { createHmac, timingSafeEqual } from 'crypto';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from './public.decorator';
 
-type AccessTokenPayload = {
+export type AccessTokenPayload = {
   sub: number;
   email: string | null;
   role: string;

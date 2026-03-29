@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -6,10 +6,14 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { Request } from 'express';
+import { AccessTokenPayload } from '../auth/jwt-auth.guard';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsQueryDto } from './dto/get-products-query.dto';
 import { PaginatedProductsResponseDto } from './dto/paginated-products-response.dto';
+
+type AuthenticatedRequest = Request & { user: AccessTokenPayload };
 
 @ApiTags('products')
 @Controller('products')
@@ -19,8 +23,13 @@ export class ProductsController {
   @Post()
   @ApiOperation({ summary: 'Create a product' })
   @ApiCreatedResponse({ description: 'Product created successfully' })
-  create(@Body() body: CreateProductDto) {
-    return this.productsService.create(body.name, body.price);
+  create(@Req() request: AuthenticatedRequest, @Body() body: CreateProductDto) {
+    return this.productsService.create(
+      body.name,
+      body.price,
+      body.categoryId,
+      request.user.restaurantId,
+    );
   }
 
   @Get()
@@ -31,7 +40,10 @@ export class ProductsController {
     description: 'Products fetched successfully',
     type: PaginatedProductsResponseDto,
   })
-  findAll(@Query() query: GetProductsQueryDto) {
-    return this.productsService.findAll(query);
+  findAll(
+    @Req() request: AuthenticatedRequest,
+    @Query() query: GetProductsQueryDto,
+  ) {
+    return this.productsService.findAll(query, request.user.restaurantId);
   }
 }

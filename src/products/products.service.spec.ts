@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -15,6 +16,9 @@ describe('ProductsService', () => {
 
   beforeEach(async () => {
     prismaService = {
+      category: {
+        findFirst: jest.fn(),
+      },
       product: {
         create: jest.fn(),
         count: jest.fn(),
@@ -40,14 +44,51 @@ describe('ProductsService', () => {
     expect(service).toBeDefined();
   });
 
+  it('creates a product only when the category belongs to the restaurant', async () => {
+    const createdProduct = { id: 1, name: 'Hamburguesa' };
+    prismaService.category.findFirst.mockResolvedValue({ id: 3 });
+    prismaService.product.create.mockResolvedValue(createdProduct);
+
+    const result = await service.create('Hamburguesa', 12.5, 3, 7);
+
+    expect(prismaService.category.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 3,
+        restaurantId: 7,
+      },
+    });
+    expect(prismaService.product.create).toHaveBeenCalledWith({
+      data: {
+        name: 'Hamburguesa',
+        price: 12.5,
+        categoryId: 3,
+        restaurantId: 7,
+      },
+    });
+    expect(result).toEqual(createdProduct);
+  });
+
+  it('rejects product creation when category belongs to another restaurant', async () => {
+    prismaService.category.findFirst.mockResolvedValue(null);
+
+    await expect(service.create('Hamburguesa', 12.5, 3, 7)).rejects.toThrow(
+      BadRequestException,
+    );
+
+    expect(prismaService.product.create).not.toHaveBeenCalled();
+  });
+
   it('returns a paginated response with defaults', async () => {
     const products = [{ id: 1 }, { id: 2 }];
     prismaService.$transaction.mockResolvedValue([2, products]);
 
-    const result = await service.findAll({ page: 1, items: 100 });
+    const result = await service.findAll({ page: 1, items: 100 }, 7);
 
-    expect(prismaService.product.count).toHaveBeenCalled();
+    expect(prismaService.product.count).toHaveBeenCalledWith({
+      where: { restaurantId: 7 },
+    });
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
+      where: { restaurantId: 7 },
       skip: 0,
       take: 100,
       orderBy: { id: 'asc' },

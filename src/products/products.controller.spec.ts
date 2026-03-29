@@ -29,11 +29,34 @@ describe('ProductsController', () => {
     expect(controller).toBeDefined();
   });
 
+  it('uses the authenticated restaurant when creating a product', () => {
+    const request = {
+      user: {
+        restaurantId: 7,
+      },
+    };
+    const body = { name: 'Hamburguesa', price: 12.5, categoryId: 3 };
+
+    controller.create(request as never, body);
+
+    expect(productsService.create).toHaveBeenCalledWith(
+      'Hamburguesa',
+      12.5,
+      3,
+      7,
+    );
+  });
+
   it('delegates pagination params to the service', () => {
+    const request = {
+      user: {
+        restaurantId: 7,
+      },
+    };
     const query = { page: 2, items: 25 };
 
-    controller.findAll(query);
+    controller.findAll(request as never, query);
 
-    expect(productsService.findAll).toHaveBeenCalledWith(query);
+    expect(productsService.findAll).toHaveBeenCalledWith(query, 7);
   });
 });
