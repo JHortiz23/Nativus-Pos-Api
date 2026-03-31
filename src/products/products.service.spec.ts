@@ -6,6 +6,9 @@ import { PrismaService } from '../prisma/prisma.service';
 describe('ProductsService', () => {
   let service: ProductsService;
   let prismaService: {
+    category: {
+      findUnique: jest.Mock;
+    };
     product: {
       create: jest.Mock;
       count: jest.Mock;
@@ -17,7 +20,7 @@ describe('ProductsService', () => {
   beforeEach(async () => {
     prismaService = {
       category: {
-        findFirst: jest.fn(),
+        findUnique: jest.fn(),
       },
       product: {
         create: jest.fn(),
@@ -44,17 +47,16 @@ describe('ProductsService', () => {
     expect(service).toBeDefined();
   });
 
-  it('creates a product only when the category belongs to the restaurant', async () => {
+  it('creates a product when the category exists', async () => {
     const createdProduct = { id: 1, name: 'Hamburguesa' };
-    prismaService.category.findFirst.mockResolvedValue({ id: 3 });
+    prismaService.category.findUnique.mockResolvedValue({ id: 3 });
     prismaService.product.create.mockResolvedValue(createdProduct);
 
     const result = await service.create('Hamburguesa', 12.5, 3, 7);
 
-    expect(prismaService.category.findFirst).toHaveBeenCalledWith({
+    expect(prismaService.category.findUnique).toHaveBeenCalledWith({
       where: {
         id: 3,
-        restaurantId: 7,
       },
     });
     expect(prismaService.product.create).toHaveBeenCalledWith({
@@ -68,8 +70,8 @@ describe('ProductsService', () => {
     expect(result).toEqual(createdProduct);
   });
 
-  it('rejects product creation when category belongs to another restaurant', async () => {
-    prismaService.category.findFirst.mockResolvedValue(null);
+  it('rejects product creation when category does not exist', async () => {
+    prismaService.category.findUnique.mockResolvedValue(null);
 
     await expect(service.create('Hamburguesa', 12.5, 3, 7)).rejects.toThrow(
       BadRequestException,

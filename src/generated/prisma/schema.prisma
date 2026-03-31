@@ -63,7 +63,6 @@ model Restaurant {
   users       User[]
   diningAreas DiningArea[]
   tables      Table[]
-  categories  Category[]
   products    Product[]
   orders      Order[]
   invoices    Invoice[]
@@ -134,18 +133,13 @@ model Table {
 }
 
 model Category {
-  id           Int        @id @default(autoincrement())
-  restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  id Int @id @default(autoincrement())
 
   name      String
-  createdAt DateTime @default(now())
-  isActive  Boolean  @default(true)
-
-  products Product[]
-
-  @@unique([restaurantId, name])
-  @@index([restaurantId])
+  createdAt DateTime  @default(now())
+  isActive  Boolean   @default(true)
+  isDleted  Boolean   @default(false)
+  products  Product[]
 }
 
 model Product {

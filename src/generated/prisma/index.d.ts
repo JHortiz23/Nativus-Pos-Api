@@ -2039,7 +2039,6 @@ export namespace Prisma {
     users: number
     diningAreas: number
     tables: number
-    categories: number
     products: number
     orders: number
     invoices: number
@@ -2050,7 +2049,6 @@ export namespace Prisma {
     users?: boolean | RestaurantCountOutputTypeCountUsersArgs
     diningAreas?: boolean | RestaurantCountOutputTypeCountDiningAreasArgs
     tables?: boolean | RestaurantCountOutputTypeCountTablesArgs
-    categories?: boolean | RestaurantCountOutputTypeCountCategoriesArgs
     products?: boolean | RestaurantCountOutputTypeCountProductsArgs
     orders?: boolean | RestaurantCountOutputTypeCountOrdersArgs
     invoices?: boolean | RestaurantCountOutputTypeCountInvoicesArgs
@@ -2087,13 +2085,6 @@ export namespace Prisma {
    */
   export type RestaurantCountOutputTypeCountTablesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TableWhereInput
-  }
-
-  /**
-   * RestaurantCountOutputType without action
-   */
-  export type RestaurantCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CategoryWhereInput
   }
 
   /**
@@ -3774,7 +3765,6 @@ export namespace Prisma {
     users?: boolean | Restaurant$usersArgs<ExtArgs>
     diningAreas?: boolean | Restaurant$diningAreasArgs<ExtArgs>
     tables?: boolean | Restaurant$tablesArgs<ExtArgs>
-    categories?: boolean | Restaurant$categoriesArgs<ExtArgs>
     products?: boolean | Restaurant$productsArgs<ExtArgs>
     orders?: boolean | Restaurant$ordersArgs<ExtArgs>
     invoices?: boolean | Restaurant$invoicesArgs<ExtArgs>
@@ -3823,7 +3813,6 @@ export namespace Prisma {
     users?: boolean | Restaurant$usersArgs<ExtArgs>
     diningAreas?: boolean | Restaurant$diningAreasArgs<ExtArgs>
     tables?: boolean | Restaurant$tablesArgs<ExtArgs>
-    categories?: boolean | Restaurant$categoriesArgs<ExtArgs>
     products?: boolean | Restaurant$productsArgs<ExtArgs>
     orders?: boolean | Restaurant$ordersArgs<ExtArgs>
     invoices?: boolean | Restaurant$invoicesArgs<ExtArgs>
@@ -3844,7 +3833,6 @@ export namespace Prisma {
       users: Prisma.$UserPayload<ExtArgs>[]
       diningAreas: Prisma.$DiningAreaPayload<ExtArgs>[]
       tables: Prisma.$TablePayload<ExtArgs>[]
-      categories: Prisma.$CategoryPayload<ExtArgs>[]
       products: Prisma.$ProductPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
@@ -4257,7 +4245,6 @@ export namespace Prisma {
     users<T extends Restaurant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diningAreas<T extends Restaurant$diningAreasArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$diningAreasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiningAreaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tables<T extends Restaurant$tablesArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$tablesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    categories<T extends Restaurant$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     products<T extends Restaurant$productsArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Restaurant$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Restaurant$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Restaurant$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4764,30 +4751,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TableScalarFieldEnum | TableScalarFieldEnum[]
-  }
-
-  /**
-   * Restaurant.categories
-   */
-  export type Restaurant$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Category
-     */
-    select?: CategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Category
-     */
-    omit?: CategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoryInclude<ExtArgs> | null
-    where?: CategoryWhereInput
-    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
-    cursor?: CategoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
@@ -8529,72 +8492,68 @@ export namespace Prisma {
 
   export type CategoryAvgAggregateOutputType = {
     id: number | null
-    restaurantId: number | null
   }
 
   export type CategorySumAggregateOutputType = {
     id: number | null
-    restaurantId: number | null
   }
 
   export type CategoryMinAggregateOutputType = {
     id: number | null
-    restaurantId: number | null
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
+    isDleted: boolean | null
   }
 
   export type CategoryMaxAggregateOutputType = {
     id: number | null
-    restaurantId: number | null
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
+    isDleted: boolean | null
   }
 
   export type CategoryCountAggregateOutputType = {
     id: number
-    restaurantId: number
     name: number
     createdAt: number
     isActive: number
+    isDleted: number
     _all: number
   }
 
 
   export type CategoryAvgAggregateInputType = {
     id?: true
-    restaurantId?: true
   }
 
   export type CategorySumAggregateInputType = {
     id?: true
-    restaurantId?: true
   }
 
   export type CategoryMinAggregateInputType = {
     id?: true
-    restaurantId?: true
     name?: true
     createdAt?: true
     isActive?: true
+    isDleted?: true
   }
 
   export type CategoryMaxAggregateInputType = {
     id?: true
-    restaurantId?: true
     name?: true
     createdAt?: true
     isActive?: true
+    isDleted?: true
   }
 
   export type CategoryCountAggregateInputType = {
     id?: true
-    restaurantId?: true
     name?: true
     createdAt?: true
     isActive?: true
+    isDleted?: true
     _all?: true
   }
 
@@ -8686,10 +8645,10 @@ export namespace Prisma {
 
   export type CategoryGroupByOutputType = {
     id: number
-    restaurantId: number
     name: string
     createdAt: Date
     isActive: boolean
+    isDleted: boolean
     _count: CategoryCountAggregateOutputType | null
     _avg: CategoryAvgAggregateOutputType | null
     _sum: CategorySumAggregateOutputType | null
@@ -8713,66 +8672,57 @@ export namespace Prisma {
 
   export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    restaurantId?: boolean
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
+    isDleted?: boolean
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    restaurantId?: boolean
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
+    isDleted?: boolean
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    restaurantId?: boolean
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
+    isDleted?: boolean
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectScalar = {
     id?: boolean
-    restaurantId?: boolean
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDleted?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantId" | "name" | "createdAt" | "isActive", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "isActive" | "isDleted", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
-  }
-  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
-  }
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Category"
     objects: {
-      restaurant: Prisma.$RestaurantPayload<ExtArgs>
       products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      restaurantId: number
       name: string
       createdAt: Date
       isActive: boolean
+      isDleted: boolean
     }, ExtArgs["result"]["category"]>
     composites: {}
   }
@@ -9167,7 +9117,6 @@ export namespace Prisma {
    */
   export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    restaurant<T extends RestaurantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RestaurantDefaultArgs<ExtArgs>>): Prisma__RestaurantClient<$Result.GetResult<Prisma.$RestaurantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Category$productsArgs<ExtArgs> = {}>(args?: Subset<T, Category$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9199,10 +9148,10 @@ export namespace Prisma {
    */
   interface CategoryFieldRefs {
     readonly id: FieldRef<"Category", 'Int'>
-    readonly restaurantId: FieldRef<"Category", 'Int'>
     readonly name: FieldRef<"Category", 'String'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
     readonly isActive: FieldRef<"Category", 'Boolean'>
+    readonly isDleted: FieldRef<"Category", 'Boolean'>
   }
     
 
@@ -9452,10 +9401,6 @@ export namespace Prisma {
      */
     data: CategoryCreateManyInput | CategoryCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9526,10 +9471,6 @@ export namespace Prisma {
      * Limit how many Categories to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoryIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -18154,10 +18095,10 @@ export namespace Prisma {
 
   export const CategoryScalarFieldEnum: {
     id: 'id',
-    restaurantId: 'restaurantId',
     name: 'name',
     createdAt: 'createdAt',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    isDleted: 'isDleted'
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -18488,7 +18429,6 @@ export namespace Prisma {
     users?: UserListRelationFilter
     diningAreas?: DiningAreaListRelationFilter
     tables?: TableListRelationFilter
-    categories?: CategoryListRelationFilter
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
     invoices?: InvoiceListRelationFilter
@@ -18508,7 +18448,6 @@ export namespace Prisma {
     users?: UserOrderByRelationAggregateInput
     diningAreas?: DiningAreaOrderByRelationAggregateInput
     tables?: TableOrderByRelationAggregateInput
-    categories?: CategoryOrderByRelationAggregateInput
     products?: ProductOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
@@ -18532,7 +18471,6 @@ export namespace Prisma {
     users?: UserListRelationFilter
     diningAreas?: DiningAreaListRelationFilter
     tables?: TableListRelationFilter
-    categories?: CategoryListRelationFilter
     products?: ProductListRelationFilter
     orders?: OrderListRelationFilter
     invoices?: InvoiceListRelationFilter
@@ -18799,44 +18737,40 @@ export namespace Prisma {
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     id?: IntFilter<"Category"> | number
-    restaurantId?: IntFilter<"Category"> | number
     name?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     isActive?: BoolFilter<"Category"> | boolean
-    restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
+    isDleted?: BoolFilter<"Category"> | boolean
     products?: ProductListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    restaurant?: RestaurantOrderByWithRelationInput
+    isDleted?: SortOrder
     products?: ProductOrderByRelationAggregateInput
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    restaurantId_name?: CategoryRestaurantIdNameCompoundUniqueInput
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
-    restaurantId?: IntFilter<"Category"> | number
     name?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     isActive?: BoolFilter<"Category"> | boolean
-    restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
+    isDleted?: BoolFilter<"Category"> | boolean
     products?: ProductListRelationFilter
-  }, "id" | "restaurantId_name">
+  }, "id">
 
   export type CategoryOrderByWithAggregationInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDleted?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -18849,10 +18783,10 @@ export namespace Prisma {
     OR?: CategoryScalarWhereWithAggregatesInput[]
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Category"> | number
-    restaurantId?: IntWithAggregatesFilter<"Category"> | number
     name?: StringWithAggregatesFilter<"Category"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Category"> | boolean
+    isDleted?: BoolWithAggregatesFilter<"Category"> | boolean
   }
 
   export type ProductWhereInput = {
@@ -19503,7 +19437,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -19522,7 +19455,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -19540,7 +19472,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -19559,7 +19490,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -19820,16 +19750,16 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    restaurant: RestaurantCreateNestedOneWithoutCategoriesInput
+    isDleted?: boolean
     products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
     id?: number
-    restaurantId: number
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDleted?: boolean
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -19837,39 +19767,40 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    restaurant?: RestaurantUpdateOneRequiredWithoutCategoriesNestedInput
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
     products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    restaurantId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
     id?: number
-    restaurantId: number
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDleted?: boolean
   }
 
   export type CategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CategoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    restaurantId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductCreateInput = {
@@ -20612,12 +20543,6 @@ export namespace Prisma {
     none?: TableWhereInput
   }
 
-  export type CategoryListRelationFilter = {
-    every?: CategoryWhereInput
-    some?: CategoryWhereInput
-    none?: CategoryWhereInput
-  }
-
   export type ProductListRelationFilter = {
     every?: ProductWhereInput
     some?: ProductWhereInput
@@ -20651,10 +20576,6 @@ export namespace Prisma {
   }
 
   export type TableOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CategoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20904,43 +20825,36 @@ export namespace Prisma {
     diningAreaId?: SortOrder
   }
 
-  export type CategoryRestaurantIdNameCompoundUniqueInput = {
-    restaurantId: number
-    name: string
-  }
-
   export type CategoryCountOrderByAggregateInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDleted?: SortOrder
   }
 
   export type CategoryAvgOrderByAggregateInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
   }
 
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDleted?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDleted?: SortOrder
   }
 
   export type CategorySumOrderByAggregateInput = {
     id?: SortOrder
-    restaurantId?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -21616,13 +21530,6 @@ export namespace Prisma {
     connect?: TableWhereUniqueInput | TableWhereUniqueInput[]
   }
 
-  export type CategoryCreateNestedManyWithoutRestaurantInput = {
-    create?: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput> | CategoryCreateWithoutRestaurantInput[] | CategoryUncheckedCreateWithoutRestaurantInput[]
-    connectOrCreate?: CategoryCreateOrConnectWithoutRestaurantInput | CategoryCreateOrConnectWithoutRestaurantInput[]
-    createMany?: CategoryCreateManyRestaurantInputEnvelope
-    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-  }
-
   export type ProductCreateNestedManyWithoutRestaurantInput = {
     create?: XOR<ProductCreateWithoutRestaurantInput, ProductUncheckedCreateWithoutRestaurantInput> | ProductCreateWithoutRestaurantInput[] | ProductUncheckedCreateWithoutRestaurantInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutRestaurantInput | ProductCreateOrConnectWithoutRestaurantInput[]
@@ -21670,13 +21577,6 @@ export namespace Prisma {
     connectOrCreate?: TableCreateOrConnectWithoutRestaurantInput | TableCreateOrConnectWithoutRestaurantInput[]
     createMany?: TableCreateManyRestaurantInputEnvelope
     connect?: TableWhereUniqueInput | TableWhereUniqueInput[]
-  }
-
-  export type CategoryUncheckedCreateNestedManyWithoutRestaurantInput = {
-    create?: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput> | CategoryCreateWithoutRestaurantInput[] | CategoryUncheckedCreateWithoutRestaurantInput[]
-    connectOrCreate?: CategoryCreateOrConnectWithoutRestaurantInput | CategoryCreateOrConnectWithoutRestaurantInput[]
-    createMany?: CategoryCreateManyRestaurantInputEnvelope
-    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
   }
 
   export type ProductUncheckedCreateNestedManyWithoutRestaurantInput = {
@@ -21759,20 +21659,6 @@ export namespace Prisma {
     update?: TableUpdateWithWhereUniqueWithoutRestaurantInput | TableUpdateWithWhereUniqueWithoutRestaurantInput[]
     updateMany?: TableUpdateManyWithWhereWithoutRestaurantInput | TableUpdateManyWithWhereWithoutRestaurantInput[]
     deleteMany?: TableScalarWhereInput | TableScalarWhereInput[]
-  }
-
-  export type CategoryUpdateManyWithoutRestaurantNestedInput = {
-    create?: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput> | CategoryCreateWithoutRestaurantInput[] | CategoryUncheckedCreateWithoutRestaurantInput[]
-    connectOrCreate?: CategoryCreateOrConnectWithoutRestaurantInput | CategoryCreateOrConnectWithoutRestaurantInput[]
-    upsert?: CategoryUpsertWithWhereUniqueWithoutRestaurantInput | CategoryUpsertWithWhereUniqueWithoutRestaurantInput[]
-    createMany?: CategoryCreateManyRestaurantInputEnvelope
-    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    update?: CategoryUpdateWithWhereUniqueWithoutRestaurantInput | CategoryUpdateWithWhereUniqueWithoutRestaurantInput[]
-    updateMany?: CategoryUpdateManyWithWhereWithoutRestaurantInput | CategoryUpdateManyWithWhereWithoutRestaurantInput[]
-    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
   export type ProductUpdateManyWithoutRestaurantNestedInput = {
@@ -21871,20 +21757,6 @@ export namespace Prisma {
     update?: TableUpdateWithWhereUniqueWithoutRestaurantInput | TableUpdateWithWhereUniqueWithoutRestaurantInput[]
     updateMany?: TableUpdateManyWithWhereWithoutRestaurantInput | TableUpdateManyWithWhereWithoutRestaurantInput[]
     deleteMany?: TableScalarWhereInput | TableScalarWhereInput[]
-  }
-
-  export type CategoryUncheckedUpdateManyWithoutRestaurantNestedInput = {
-    create?: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput> | CategoryCreateWithoutRestaurantInput[] | CategoryUncheckedCreateWithoutRestaurantInput[]
-    connectOrCreate?: CategoryCreateOrConnectWithoutRestaurantInput | CategoryCreateOrConnectWithoutRestaurantInput[]
-    upsert?: CategoryUpsertWithWhereUniqueWithoutRestaurantInput | CategoryUpsertWithWhereUniqueWithoutRestaurantInput[]
-    createMany?: CategoryCreateManyRestaurantInputEnvelope
-    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    update?: CategoryUpdateWithWhereUniqueWithoutRestaurantInput | CategoryUpdateWithWhereUniqueWithoutRestaurantInput[]
-    updateMany?: CategoryUpdateManyWithWhereWithoutRestaurantInput | CategoryUpdateManyWithWhereWithoutRestaurantInput[]
-    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
   export type ProductUncheckedUpdateManyWithoutRestaurantNestedInput = {
@@ -22381,12 +22253,6 @@ export namespace Prisma {
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
-  export type RestaurantCreateNestedOneWithoutCategoriesInput = {
-    create?: XOR<RestaurantCreateWithoutCategoriesInput, RestaurantUncheckedCreateWithoutCategoriesInput>
-    connectOrCreate?: RestaurantCreateOrConnectWithoutCategoriesInput
-    connect?: RestaurantWhereUniqueInput
-  }
-
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
@@ -22399,14 +22265,6 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
     createMany?: ProductCreateManyCategoryInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-  }
-
-  export type RestaurantUpdateOneRequiredWithoutCategoriesNestedInput = {
-    create?: XOR<RestaurantCreateWithoutCategoriesInput, RestaurantUncheckedCreateWithoutCategoriesInput>
-    connectOrCreate?: RestaurantCreateOrConnectWithoutCategoriesInput
-    upsert?: RestaurantUpsertWithoutCategoriesInput
-    connect?: RestaurantWhereUniqueInput
-    update?: XOR<XOR<RestaurantUpdateToOneWithWhereWithoutCategoriesInput, RestaurantUpdateWithoutCategoriesInput>, RestaurantUncheckedUpdateWithoutCategoriesInput>
   }
 
   export type ProductUpdateManyWithoutCategoryNestedInput = {
@@ -23349,7 +23207,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -23367,7 +23224,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -23526,31 +23382,6 @@ export namespace Prisma {
 
   export type TableCreateManyRestaurantInputEnvelope = {
     data: TableCreateManyRestaurantInput | TableCreateManyRestaurantInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CategoryCreateWithoutRestaurantInput = {
-    name: string
-    createdAt?: Date | string
-    isActive?: boolean
-    products?: ProductCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryUncheckedCreateWithoutRestaurantInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    isActive?: boolean
-    products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryCreateOrConnectWithoutRestaurantInput = {
-    where: CategoryWhereUniqueInput
-    create: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput>
-  }
-
-  export type CategoryCreateManyRestaurantInputEnvelope = {
-    data: CategoryCreateManyRestaurantInput | CategoryCreateManyRestaurantInput[]
     skipDuplicates?: boolean
   }
 
@@ -23809,33 +23640,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Table"> | Date | string
   }
 
-  export type CategoryUpsertWithWhereUniqueWithoutRestaurantInput = {
-    where: CategoryWhereUniqueInput
-    update: XOR<CategoryUpdateWithoutRestaurantInput, CategoryUncheckedUpdateWithoutRestaurantInput>
-    create: XOR<CategoryCreateWithoutRestaurantInput, CategoryUncheckedCreateWithoutRestaurantInput>
-  }
-
-  export type CategoryUpdateWithWhereUniqueWithoutRestaurantInput = {
-    where: CategoryWhereUniqueInput
-    data: XOR<CategoryUpdateWithoutRestaurantInput, CategoryUncheckedUpdateWithoutRestaurantInput>
-  }
-
-  export type CategoryUpdateManyWithWhereWithoutRestaurantInput = {
-    where: CategoryScalarWhereInput
-    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutRestaurantInput>
-  }
-
-  export type CategoryScalarWhereInput = {
-    AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
-    OR?: CategoryScalarWhereInput[]
-    NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
-    id?: IntFilter<"Category"> | number
-    restaurantId?: IntFilter<"Category"> | number
-    name?: StringFilter<"Category"> | string
-    createdAt?: DateTimeFilter<"Category"> | Date | string
-    isActive?: BoolFilter<"Category"> | boolean
-  }
-
   export type ProductUpsertWithWhereUniqueWithoutRestaurantInput = {
     where: ProductWhereUniqueInput
     update: XOR<ProductUpdateWithoutRestaurantInput, ProductUncheckedUpdateWithoutRestaurantInput>
@@ -23973,7 +23777,6 @@ export namespace Prisma {
     client: ClientCreateNestedOneWithoutRestaurantsInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -23991,7 +23794,6 @@ export namespace Prisma {
     isActive?: boolean
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -24220,7 +24022,6 @@ export namespace Prisma {
     client?: ClientUpdateOneRequiredWithoutRestaurantsNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -24238,7 +24039,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -24363,7 +24163,6 @@ export namespace Prisma {
     client: ClientCreateNestedOneWithoutRestaurantsInput
     users?: UserCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -24381,7 +24180,6 @@ export namespace Prisma {
     isActive?: boolean
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -24443,7 +24241,6 @@ export namespace Prisma {
     client?: ClientUpdateOneRequiredWithoutRestaurantsNestedInput
     users?: UserUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -24461,7 +24258,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -24494,7 +24290,6 @@ export namespace Prisma {
     client: ClientCreateNestedOneWithoutRestaurantsInput
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -24512,7 +24307,6 @@ export namespace Prisma {
     isActive?: boolean
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -24641,7 +24435,6 @@ export namespace Prisma {
     client?: ClientUpdateOneRequiredWithoutRestaurantsNestedInput
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -24659,7 +24452,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -24724,46 +24516,6 @@ export namespace Prisma {
     data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutTableInput>
   }
 
-  export type RestaurantCreateWithoutCategoriesInput = {
-    name: string
-    address?: string | null
-    phone?: string | null
-    email?: string | null
-    createdAt?: Date | string
-    isActive?: boolean
-    client: ClientCreateNestedOneWithoutRestaurantsInput
-    users?: UserCreateNestedManyWithoutRestaurantInput
-    diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
-    tables?: TableCreateNestedManyWithoutRestaurantInput
-    products?: ProductCreateNestedManyWithoutRestaurantInput
-    orders?: OrderCreateNestedManyWithoutRestaurantInput
-    invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
-    shifts?: ShiftCreateNestedManyWithoutRestaurantInput
-  }
-
-  export type RestaurantUncheckedCreateWithoutCategoriesInput = {
-    id?: number
-    clientId: number
-    name: string
-    address?: string | null
-    phone?: string | null
-    email?: string | null
-    createdAt?: Date | string
-    isActive?: boolean
-    users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
-    diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
-    tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
-    orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
-    shifts?: ShiftUncheckedCreateNestedManyWithoutRestaurantInput
-  }
-
-  export type RestaurantCreateOrConnectWithoutCategoriesInput = {
-    where: RestaurantWhereUniqueInput
-    create: XOR<RestaurantCreateWithoutCategoriesInput, RestaurantUncheckedCreateWithoutCategoriesInput>
-  }
-
   export type ProductCreateWithoutCategoryInput = {
     name: string
     description?: string | null
@@ -24797,52 +24549,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RestaurantUpsertWithoutCategoriesInput = {
-    update: XOR<RestaurantUpdateWithoutCategoriesInput, RestaurantUncheckedUpdateWithoutCategoriesInput>
-    create: XOR<RestaurantCreateWithoutCategoriesInput, RestaurantUncheckedCreateWithoutCategoriesInput>
-    where?: RestaurantWhereInput
-  }
-
-  export type RestaurantUpdateToOneWithWhereWithoutCategoriesInput = {
-    where?: RestaurantWhereInput
-    data: XOR<RestaurantUpdateWithoutCategoriesInput, RestaurantUncheckedUpdateWithoutCategoriesInput>
-  }
-
-  export type RestaurantUpdateWithoutCategoriesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    client?: ClientUpdateOneRequiredWithoutRestaurantsNestedInput
-    users?: UserUpdateManyWithoutRestaurantNestedInput
-    diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
-    tables?: TableUpdateManyWithoutRestaurantNestedInput
-    products?: ProductUpdateManyWithoutRestaurantNestedInput
-    orders?: OrderUpdateManyWithoutRestaurantNestedInput
-    invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
-    shifts?: ShiftUpdateManyWithoutRestaurantNestedInput
-  }
-
-  export type RestaurantUncheckedUpdateWithoutCategoriesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clientId?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
-    diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
-    tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
-    invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
-    shifts?: ShiftUncheckedUpdateManyWithoutRestaurantNestedInput
-  }
-
   export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
     where: ProductWhereUniqueInput
     update: XOR<ProductUpdateWithoutCategoryInput, ProductUncheckedUpdateWithoutCategoryInput>
@@ -24870,7 +24576,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftCreateNestedManyWithoutRestaurantInput
@@ -24888,7 +24593,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftUncheckedCreateNestedManyWithoutRestaurantInput
@@ -24903,15 +24607,15 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    restaurant: RestaurantCreateNestedOneWithoutCategoriesInput
+    isDleted?: boolean
   }
 
   export type CategoryUncheckedCreateWithoutProductsInput = {
     id?: number
-    restaurantId: number
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDleted?: boolean
   }
 
   export type CategoryCreateOrConnectWithoutProductsInput = {
@@ -24995,7 +24699,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUpdateManyWithoutRestaurantNestedInput
@@ -25013,7 +24716,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -25034,15 +24736,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    restaurant?: RestaurantUpdateOneRequiredWithoutCategoriesNestedInput
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CategoryUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    restaurantId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
@@ -25114,7 +24816,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftCreateNestedManyWithoutRestaurantInput
@@ -25132,7 +24833,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftUncheckedCreateNestedManyWithoutRestaurantInput
@@ -25288,7 +24988,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUpdateManyWithoutRestaurantNestedInput
@@ -25306,7 +25005,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -25581,7 +25279,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceCreateNestedManyWithoutRestaurantInput
@@ -25599,7 +25296,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutRestaurantInput
@@ -25745,7 +25441,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -25763,7 +25458,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -25880,7 +25574,6 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaCreateNestedManyWithoutRestaurantInput
     tables?: TableCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryCreateNestedManyWithoutRestaurantInput
     products?: ProductCreateNestedManyWithoutRestaurantInput
     orders?: OrderCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftCreateNestedManyWithoutRestaurantInput
@@ -25898,7 +25591,6 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutRestaurantInput
     diningAreas?: DiningAreaUncheckedCreateNestedManyWithoutRestaurantInput
     tables?: TableUncheckedCreateNestedManyWithoutRestaurantInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutRestaurantInput
     products?: ProductUncheckedCreateNestedManyWithoutRestaurantInput
     orders?: OrderUncheckedCreateNestedManyWithoutRestaurantInput
     shifts?: ShiftUncheckedCreateNestedManyWithoutRestaurantInput
@@ -26098,7 +25790,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUpdateManyWithoutRestaurantNestedInput
@@ -26116,7 +25807,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     shifts?: ShiftUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -26702,7 +26392,6 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUpdateManyWithoutRestaurantNestedInput
     tables?: TableUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUpdateManyWithoutRestaurantNestedInput
     products?: ProductUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUpdateManyWithoutRestaurantNestedInput
@@ -26720,7 +26409,6 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutRestaurantNestedInput
     diningAreas?: DiningAreaUncheckedUpdateManyWithoutRestaurantNestedInput
     tables?: TableUncheckedUpdateManyWithoutRestaurantNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutRestaurantNestedInput
     products?: ProductUncheckedUpdateManyWithoutRestaurantNestedInput
     orders?: OrderUncheckedUpdateManyWithoutRestaurantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutRestaurantNestedInput
@@ -26760,13 +26448,6 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
-  }
-
-  export type CategoryCreateManyRestaurantInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    isActive?: boolean
   }
 
   export type ProductCreateManyRestaurantInput = {
@@ -26904,28 +26585,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CategoryUpdateWithoutRestaurantInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    products?: ProductUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type CategoryUncheckedUpdateWithoutRestaurantInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type CategoryUncheckedUpdateManyWithoutRestaurantInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductUpdateWithoutRestaurantInput = {

@@ -169,10 +169,10 @@ exports.Prisma.TableScalarFieldEnum = {
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  restaurantId: 'restaurantId',
   name: 'name',
   createdAt: 'createdAt',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  isDleted: 'isDleted'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {

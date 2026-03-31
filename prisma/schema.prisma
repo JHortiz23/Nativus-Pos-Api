@@ -49,9 +49,9 @@ model Client {
 }
 
 model Restaurant {
-  id        Int      @id @default(autoincrement())
-  clientId  Int
-  client    Client   @relation(fields: [clientId], references: [id])
+  id       Int    @id @default(autoincrement())
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
 
   name      String
   address   String?
@@ -63,27 +63,26 @@ model Restaurant {
   users       User[]
   diningAreas DiningArea[]
   tables      Table[]
-  categories  Category[]
   products    Product[]
   orders      Order[]
   invoices    Invoice[]
   shifts      Shift[]
 
-  @@index([clientId])
   @@unique([clientId, name])
+  @@index([clientId])
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
   name      String
   email     String?
-  pin       String?   // optional quick-login PIN for POS
+  pin       String? // optional quick-login PIN for POS
   role      UserRole
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
 
   openedShifts    Shift[]       @relation("ShiftOpenedBy")
   closedShifts    Shift[]       @relation("ShiftClosedBy")
@@ -92,64 +91,59 @@ model User {
   invoiceVoids    InvoiceVoid[] @relation("VoidedBy")
   authorizedVoids InvoiceVoid[] @relation("AuthorizedBy")
 
-  @@index([restaurantId])
   @@unique([restaurantId, email])
   @@unique([restaurantId, pin])
+  @@index([restaurantId])
 }
 
 model DiningArea {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
-  name      String   // "Salón 1", "Salón 2", "Terraza", "Barra 1", etc.
+  name      String // "Salón 1", "Salón 2", "Terraza", "Barra 1", etc.
   createdAt DateTime @default(now())
   isActive  Boolean  @default(true)
 
   tables Table[]
 
-  @@index([restaurantId])
   @@unique([restaurantId, name])
+  @@index([restaurantId])
 }
 
 model Table {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
   diningAreaId Int
   diningArea   DiningArea @relation(fields: [diningAreaId], references: [id])
 
-  name      String   // "Mesa 1"
+  name      String // "Mesa 1"
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
   orders   Order[]
   invoices Invoice[]
 
-  @@index([restaurantId])
-  @@index([restaurantId, diningAreaId])
   // allows "Mesa 1" in Salón 1 and also "Mesa 1" in Terraza without conflict
   @@unique([restaurantId, diningAreaId, name])
+  @@index([restaurantId])
+  @@index([restaurantId, diningAreaId])
 }
 
 model Category {
-  id           Int      @id @default(autoincrement())
-  restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  id Int @id @default(autoincrement())
 
   name      String
-  createdAt DateTime @default(now())
-  isActive  Boolean  @default(true)
-
-  products Product[]
-
-  @@index([restaurantId])
-  @@unique([restaurantId, name])
+  createdAt DateTime  @default(now())
+  isActive  Boolean   @default(true)
+  isDleted  Boolean   @default(false)
+  products  Product[]
 }
 
 model Product {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
@@ -165,13 +159,13 @@ model Product {
   orderItems   OrderItem[]
   invoiceItems InvoiceItem[]
 
+  @@unique([restaurantId, categoryId, name])
   @@index([restaurantId])
   @@index([restaurantId, categoryId])
-  @@unique([restaurantId, categoryId, name])
 }
 
 model Order {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
@@ -204,7 +198,7 @@ model OrderItem {
   product   Product @relation(fields: [productId], references: [id])
 
   qty       Int
-  unitPrice Decimal @db.Decimal(10, 2) // frozen at time of order
+  unitPrice Decimal  @db.Decimal(10, 2) // frozen at time of order
   notes     String?
   createdAt DateTime @default(now())
 
@@ -213,7 +207,7 @@ model OrderItem {
 }
 
 model Shift {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
@@ -225,7 +219,7 @@ model Shift {
 
   closedAt   DateTime?
   closedById Int?
-  closedBy   User? @relation("ShiftClosedBy", fields: [closedById], references: [id])
+  closedBy   User?     @relation("ShiftClosedBy", fields: [closedById], references: [id])
 
   openingCash Decimal? @db.Decimal(10, 2)
   closingCash Decimal? @db.Decimal(10, 2)
@@ -238,7 +232,7 @@ model Shift {
 }
 
 model Invoice {
-  id           Int      @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
@@ -255,13 +249,13 @@ model Invoice {
   createdAt    DateTime @default(now())
 
   subtotal Decimal @db.Decimal(10, 2)
-  tax      Decimal @db.Decimal(10, 2) @default(0)
+  tax      Decimal @default(0) @db.Decimal(10, 2)
   total    Decimal @db.Decimal(10, 2)
 
   paymentMethod PaymentMethod @default(CASH)
 
   // optional: invoice created from an order
-  orderId Int?  @unique
+  orderId Int?   @unique
   order   Order? @relation(fields: [orderId], references: [id])
 
   items InvoiceItem[]
@@ -273,7 +267,7 @@ model Invoice {
 }
 
 model InvoiceItem {
-  id        Int @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   invoiceId Int
   invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
@@ -290,8 +284,8 @@ model InvoiceItem {
 }
 
 model InvoiceVoid {
-  id        Int @id @default(autoincrement())
-  invoiceId Int @unique
+  id        Int     @id @default(autoincrement())
+  invoiceId Int     @unique
   invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
   voidedAt DateTime @default(now())

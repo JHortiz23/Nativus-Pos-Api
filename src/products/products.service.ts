@@ -12,17 +12,14 @@ export class ProductsService {
     categoryId: number,
     restaurantId: number,
   ) {
-    const category = await this.prisma.category.findFirst({
+    const category = await this.prisma.category.findUnique({
       where: {
         id: categoryId,
-        restaurantId,
       },
     });
 
     if (!category) {
-      throw new BadRequestException(
-        'Category does not belong to the authenticated restaurant',
-      );
+      throw new BadRequestException('Category does not exist');
     }
 
     return this.prisma.product.create({
