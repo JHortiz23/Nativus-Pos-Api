@@ -6,6 +6,16 @@ import { GetProductsQueryDto } from './dto/get-products-query.dto';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
+  findAllCategories() {
+    return this.prisma.category.findMany({
+      where: {
+        isActive: true,
+        isDleted: false,
+      },
+      orderBy: { id: 'asc' },
+    });
+  }
+
   async create(
     name: string,
     price: number,

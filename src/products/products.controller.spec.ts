@@ -4,12 +4,17 @@ import { ProductsService } from './products.service';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
-  let productsService: { create: jest.Mock; findAll: jest.Mock };
+  let productsService: {
+    create: jest.Mock;
+    findAll: jest.Mock;
+    findAllCategories: jest.Mock;
+  };
 
   beforeEach(async () => {
     productsService = {
       create: jest.fn(),
       findAll: jest.fn(),
+      findAllCategories: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -45,6 +50,12 @@ describe('ProductsController', () => {
       3,
       7,
     );
+  });
+
+  it('delegates category listing to the service', () => {
+    controller.findAllCategories();
+
+    expect(productsService.findAllCategories).toHaveBeenCalled();
   });
 
   it('delegates pagination params to the service', () => {

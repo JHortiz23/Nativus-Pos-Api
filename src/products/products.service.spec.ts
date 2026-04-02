@@ -8,6 +8,7 @@ describe('ProductsService', () => {
   let prismaService: {
     category: {
       findUnique: jest.Mock;
+      findMany: jest.Mock;
     };
     product: {
       create: jest.Mock;
@@ -21,6 +22,7 @@ describe('ProductsService', () => {
     prismaService = {
       category: {
         findUnique: jest.fn(),
+        findMany: jest.fn(),
       },
       product: {
         create: jest.fn(),
@@ -68,6 +70,25 @@ describe('ProductsService', () => {
       },
     });
     expect(result).toEqual(createdProduct);
+  });
+
+  it('returns active categories that are not deleted', async () => {
+    const categories = [
+      { id: 1, name: 'Bebidas', isActive: true, isDleted: false },
+      { id: 2, name: 'Postres', isActive: true, isDleted: false },
+    ];
+    prismaService.category.findMany.mockResolvedValue(categories);
+
+    const result = await service.findAllCategories();
+
+    expect(prismaService.category.findMany).toHaveBeenCalledWith({
+      where: {
+        isActive: true,
+        isDleted: false,
+      },
+      orderBy: { id: 'asc' },
+    });
+    expect(result).toEqual(categories);
   });
 
   it('rejects product creation when category does not exist', async () => {

@@ -12,6 +12,7 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsQueryDto } from './dto/get-products-query.dto';
 import { PaginatedProductsResponseDto } from './dto/paginated-products-response.dto';
+import { ProductCategoryDto } from './dto/product-categories-response.dto';
 
 type AuthenticatedRequest = Request & { user: AccessTokenPayload };
 
@@ -19,6 +20,17 @@ type AuthenticatedRequest = Request & { user: AccessTokenPayload };
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
+  @Get('categories')
+  @ApiOperation({ summary: 'List product categories' })
+  @ApiOkResponse({
+    description: 'Product categories fetched successfully',
+    type: ProductCategoryDto,
+    isArray: true,
+  })
+  findAllCategories() {
+    return this.productsService.findAllCategories();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create a product' })
