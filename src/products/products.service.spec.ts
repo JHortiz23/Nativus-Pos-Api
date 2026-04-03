@@ -102,7 +102,10 @@ describe('ProductsService', () => {
   });
 
   it('returns a paginated response with defaults', async () => {
-    const products = [{ id: 1 }, { id: 2 }];
+    const products = [
+      { id: 1, category: { name: 'Bebidas' } },
+      { id: 2, category: { name: 'Postres' } },
+    ];
     prismaService.$transaction.mockResolvedValue([2, products]);
 
     const result = await service.findAll({ page: 1, items: 100 }, 7);
@@ -115,6 +118,13 @@ describe('ProductsService', () => {
       skip: 0,
       take: 100,
       orderBy: { id: 'asc' },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     expect(prismaService.$transaction).toHaveBeenCalledWith([
       prismaService.product.count.mock.results[0].value,

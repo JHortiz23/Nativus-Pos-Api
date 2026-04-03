@@ -50,6 +50,13 @@ export class ProductsService {
         skip,
         take: pageSize,
         orderBy: { id: 'asc' },
+        include: {
+          category: {
+            select: {
+              name: true,
+            },
+          },
+        },
       }),
     ]);
 
