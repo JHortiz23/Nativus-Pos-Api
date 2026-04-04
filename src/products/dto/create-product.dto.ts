@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsInt,
@@ -14,6 +14,11 @@ export class CreateProductDto {
   @ApiProperty({ example: 'Hamburguesa clasica' })
   @IsString()
   @IsNotEmpty()
+  @Transform(({ value }) =>
+    typeof value === 'string'
+      ? value.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase())
+      : value,
+  )
   name: string;
 
   @ApiProperty({ example: 12.5, minimum: 0 })
