@@ -50,11 +50,23 @@ describe('ProductsService', () => {
   });
 
   it('creates a product when the category exists', async () => {
-    const createdProduct = { id: 1, name: 'Hamburguesa' };
+    const createdProduct = {
+      id: 1,
+      name: 'Hamburguesa',
+      description: 'Pan brioche, carne angus y queso cheddar',
+      isActive: false,
+    };
     prismaService.category.findUnique.mockResolvedValue({ id: 3 });
     prismaService.product.create.mockResolvedValue(createdProduct);
 
-    const result = await service.create('Hamburguesa', 12.5, 3, 7);
+    const result = await service.create(
+      'Hamburguesa',
+      12.5,
+      3,
+      7,
+      'Pan brioche, carne angus y queso cheddar',
+      false,
+    );
 
     expect(prismaService.category.findUnique).toHaveBeenCalledWith({
       where: {
@@ -67,6 +79,33 @@ describe('ProductsService', () => {
         price: 12.5,
         categoryId: 3,
         restaurantId: 7,
+        description: 'Pan brioche, carne angus y queso cheddar',
+        isActive: false,
+      },
+    });
+    expect(result).toEqual(createdProduct);
+  });
+
+  it('defaults description to null and isActive to true', async () => {
+    const createdProduct = {
+      id: 1,
+      name: 'Hamburguesa',
+      description: null,
+      isActive: true,
+    };
+    prismaService.category.findUnique.mockResolvedValue({ id: 3 });
+    prismaService.product.create.mockResolvedValue(createdProduct);
+
+    const result = await service.create('Hamburguesa', 12.5, 3, 7);
+
+    expect(prismaService.product.create).toHaveBeenCalledWith({
+      data: {
+        name: 'Hamburguesa',
+        price: 12.5,
+        categoryId: 3,
+        restaurantId: 7,
+        description: null,
+        isActive: true,
       },
     });
     expect(result).toEqual(createdProduct);

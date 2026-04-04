@@ -41,6 +41,8 @@ export class ProductsController {
       body.price,
       body.categoryId,
       request.user.restaurantId,
+      body.description,
+      body.isActive,
     );
   }
 

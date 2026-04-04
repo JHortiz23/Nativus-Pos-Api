@@ -21,6 +21,8 @@ export class ProductsService {
     price: number,
     categoryId: number,
     restaurantId: number,
+    description?: string | null,
+    isActive?: boolean,
   ) {
     const category = await this.prisma.category.findUnique({
       where: {
@@ -33,7 +35,14 @@ export class ProductsService {
     }
 
     return this.prisma.product.create({
-      data: { name, price, categoryId, restaurantId },
+      data: {
+        name,
+        price,
+        categoryId,
+        restaurantId,
+        description: description ?? null,
+        isActive: isActive ?? true,
+      },
     });
   }
 

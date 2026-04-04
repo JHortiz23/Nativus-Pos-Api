@@ -40,7 +40,13 @@ describe('ProductsController', () => {
         restaurantId: 7,
       },
     };
-    const body = { name: 'Hamburguesa', price: 12.5, categoryId: 3 };
+    const body = {
+      name: 'Hamburguesa',
+      price: 12.5,
+      categoryId: 3,
+      description: null,
+      isActive: true,
+    };
 
     controller.create(request as never, body);
 
@@ -49,6 +55,8 @@ describe('ProductsController', () => {
       12.5,
       3,
       7,
+      null,
+      true,
     );
   });
 
