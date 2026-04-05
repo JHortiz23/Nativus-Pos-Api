@@ -10,7 +10,7 @@ export class ProductsService {
     return this.prisma.category.findMany({
       where: {
         isActive: true,
-        isDleted: false,
+        isDeleted: false,
       },
       orderBy: { id: 'asc' },
     });
@@ -50,7 +50,10 @@ export class ProductsService {
     const page = query.page ?? 1;
     const pageSize = query.items ?? 100;
     const skip = (page - 1) * pageSize;
-    const where = { restaurantId };
+    const where = {
+      restaurantId,
+      isDeleted: false,
+    };
 
     const [total, products] = await this.prisma.$transaction([
       this.prisma.product.count({ where }),

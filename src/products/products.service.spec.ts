@@ -117,8 +117,8 @@ describe('ProductsService', () => {
 
   it('returns active categories that are not deleted', async () => {
     const categories = [
-      { id: 1, name: 'Bebidas', isActive: true, isDleted: false },
-      { id: 2, name: 'Postres', isActive: true, isDleted: false },
+      { id: 1, name: 'Bebidas', isActive: true, isDeleted: false },
+      { id: 2, name: 'Postres', isActive: true, isDeleted: false },
     ];
     prismaService.category.findMany.mockResolvedValue(categories);
 
@@ -127,7 +127,7 @@ describe('ProductsService', () => {
     expect(prismaService.category.findMany).toHaveBeenCalledWith({
       where: {
         isActive: true,
-        isDleted: false,
+        isDeleted: false,
       },
       orderBy: { id: 'asc' },
     });
@@ -154,10 +154,10 @@ describe('ProductsService', () => {
     const result = await service.findAll({ page: 1, items: 100 }, 7);
 
     expect(prismaService.product.count).toHaveBeenCalledWith({
-      where: { restaurantId: 7 },
+      where: { restaurantId: 7, isDeleted: false },
     });
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
-      where: { restaurantId: 7 },
+      where: { restaurantId: 7, isDeleted: false },
       skip: 0,
       take: 100,
       orderBy: { id: 'asc' },

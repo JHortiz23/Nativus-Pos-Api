@@ -11,5 +11,5 @@ export class ProductCategoryDto {
   isActive: boolean;
 
   @ApiProperty({ example: false })
-  isDleted: boolean;
+  isDeleted: boolean;
 }

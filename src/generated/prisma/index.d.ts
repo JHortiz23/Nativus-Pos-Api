@@ -8503,7 +8503,7 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
-    isDleted: boolean | null
+    isDeleted: boolean | null
   }
 
   export type CategoryMaxAggregateOutputType = {
@@ -8511,7 +8511,7 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
-    isDleted: boolean | null
+    isDeleted: boolean | null
   }
 
   export type CategoryCountAggregateOutputType = {
@@ -8519,7 +8519,7 @@ export namespace Prisma {
     name: number
     createdAt: number
     isActive: number
-    isDleted: number
+    isDeleted: number
     _all: number
   }
 
@@ -8537,7 +8537,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
-    isDleted?: true
+    isDeleted?: true
   }
 
   export type CategoryMaxAggregateInputType = {
@@ -8545,7 +8545,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
-    isDleted?: true
+    isDeleted?: true
   }
 
   export type CategoryCountAggregateInputType = {
@@ -8553,7 +8553,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
-    isDleted?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -8648,7 +8648,7 @@ export namespace Prisma {
     name: string
     createdAt: Date
     isActive: boolean
-    isDleted: boolean
+    isDeleted: boolean
     _count: CategoryCountAggregateOutputType | null
     _avg: CategoryAvgAggregateOutputType | null
     _sum: CategorySumAggregateOutputType | null
@@ -8675,7 +8675,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
@@ -8685,7 +8685,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8693,7 +8693,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }, ExtArgs["result"]["category"]>
 
   export type CategorySelectScalar = {
@@ -8701,10 +8701,10 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "isActive" | "isDleted", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "isActive" | "isDeleted", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -8722,7 +8722,7 @@ export namespace Prisma {
       name: string
       createdAt: Date
       isActive: boolean
-      isDleted: boolean
+      isDeleted: boolean
     }, ExtArgs["result"]["category"]>
     composites: {}
   }
@@ -9151,7 +9151,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Category", 'String'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
     readonly isActive: FieldRef<"Category", 'Boolean'>
-    readonly isDleted: FieldRef<"Category", 'Boolean'>
+    readonly isDeleted: FieldRef<"Category", 'Boolean'>
   }
     
 
@@ -9617,6 +9617,7 @@ export namespace Prisma {
     price: Decimal | null
     createdAt: Date | null
     isActive: boolean | null
+    isDeleted: boolean | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -9628,6 +9629,7 @@ export namespace Prisma {
     price: Decimal | null
     createdAt: Date | null
     isActive: boolean | null
+    isDeleted: boolean | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -9639,6 +9641,7 @@ export namespace Prisma {
     price: number
     createdAt: number
     isActive: number
+    isDeleted: number
     _all: number
   }
 
@@ -9666,6 +9669,7 @@ export namespace Prisma {
     price?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -9677,6 +9681,7 @@ export namespace Prisma {
     price?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -9688,6 +9693,7 @@ export namespace Prisma {
     price?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -9786,6 +9792,7 @@ export namespace Prisma {
     price: Decimal
     createdAt: Date
     isActive: boolean
+    isDeleted: boolean
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -9816,6 +9823,7 @@ export namespace Prisma {
     price?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
@@ -9832,6 +9840,7 @@ export namespace Prisma {
     price?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -9845,6 +9854,7 @@ export namespace Prisma {
     price?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -9858,9 +9868,10 @@ export namespace Prisma {
     price?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantId" | "categoryId" | "name" | "description" | "price" | "createdAt" | "isActive", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantId" | "categoryId" | "name" | "description" | "price" | "createdAt" | "isActive" | "isDeleted", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -9894,6 +9905,7 @@ export namespace Prisma {
       price: Prisma.Decimal
       createdAt: Date
       isActive: boolean
+      isDeleted: boolean
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -10329,6 +10341,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Product", 'Decimal'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly isActive: FieldRef<"Product", 'Boolean'>
+    readonly isDeleted: FieldRef<"Product", 'Boolean'>
   }
     
 
@@ -18098,7 +18111,7 @@ export namespace Prisma {
     name: 'name',
     createdAt: 'createdAt',
     isActive: 'isActive',
-    isDleted: 'isDleted'
+    isDeleted: 'isDeleted'
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -18112,7 +18125,8 @@ export namespace Prisma {
     description: 'description',
     price: 'price',
     createdAt: 'createdAt',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    isDeleted: 'isDeleted'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -18740,7 +18754,7 @@ export namespace Prisma {
     name?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     isActive?: BoolFilter<"Category"> | boolean
-    isDleted?: BoolFilter<"Category"> | boolean
+    isDeleted?: BoolFilter<"Category"> | boolean
     products?: ProductListRelationFilter
   }
 
@@ -18749,7 +18763,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    isDleted?: SortOrder
+    isDeleted?: SortOrder
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -18761,7 +18775,7 @@ export namespace Prisma {
     name?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     isActive?: BoolFilter<"Category"> | boolean
-    isDleted?: BoolFilter<"Category"> | boolean
+    isDeleted?: BoolFilter<"Category"> | boolean
     products?: ProductListRelationFilter
   }, "id">
 
@@ -18770,7 +18784,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    isDleted?: SortOrder
+    isDeleted?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -18786,7 +18800,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Category"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Category"> | boolean
-    isDleted?: BoolWithAggregatesFilter<"Category"> | boolean
+    isDeleted?: BoolWithAggregatesFilter<"Category"> | boolean
   }
 
   export type ProductWhereInput = {
@@ -18801,6 +18815,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     isActive?: BoolFilter<"Product"> | boolean
+    isDeleted?: BoolFilter<"Product"> | boolean
     restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     orderItems?: OrderItemListRelationFilter
@@ -18816,6 +18831,7 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
     restaurant?: RestaurantOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     orderItems?: OrderItemOrderByRelationAggregateInput
@@ -18835,6 +18851,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     isActive?: BoolFilter<"Product"> | boolean
+    isDeleted?: BoolFilter<"Product"> | boolean
     restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     orderItems?: OrderItemListRelationFilter
@@ -18850,6 +18867,7 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -18869,6 +18887,7 @@ export namespace Prisma {
     price?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Product"> | boolean
+    isDeleted?: BoolWithAggregatesFilter<"Product"> | boolean
   }
 
   export type OrderWhereInput = {
@@ -19750,7 +19769,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
     products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
@@ -19759,7 +19778,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -19767,7 +19786,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
@@ -19776,7 +19795,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
@@ -19785,14 +19804,14 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }
 
   export type CategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CategoryUncheckedUpdateManyInput = {
@@ -19800,7 +19819,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductCreateInput = {
@@ -19809,6 +19828,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
@@ -19824,6 +19844,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     invoiceItems?: InvoiceItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -19834,6 +19855,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
@@ -19849,6 +19871,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     invoiceItems?: InvoiceItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -19862,6 +19885,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -19870,6 +19894,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -19881,6 +19906,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderCreateInput = {
@@ -20830,7 +20856,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    isDleted?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type CategoryAvgOrderByAggregateInput = {
@@ -20842,7 +20868,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    isDleted?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
@@ -20850,7 +20876,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    isDleted?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type CategorySumOrderByAggregateInput = {
@@ -20908,6 +20934,7 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -20926,6 +20953,7 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -20937,6 +20965,7 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -23391,6 +23420,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     category: CategoryCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     invoiceItems?: InvoiceItemCreateNestedManyWithoutProductInput
@@ -23404,6 +23434,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     invoiceItems?: InvoiceItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -23668,6 +23699,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     isActive?: BoolFilter<"Product"> | boolean
+    isDeleted?: BoolFilter<"Product"> | boolean
   }
 
   export type OrderUpsertWithWhereUniqueWithoutRestaurantInput = {
@@ -24522,6 +24554,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     invoiceItems?: InvoiceItemCreateNestedManyWithoutProductInput
@@ -24535,6 +24568,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     invoiceItems?: InvoiceItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -24607,7 +24641,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }
 
   export type CategoryUncheckedCreateWithoutProductsInput = {
@@ -24615,7 +24649,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
-    isDleted?: boolean
+    isDeleted?: boolean
   }
 
   export type CategoryCreateOrConnectWithoutProductsInput = {
@@ -24736,7 +24770,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CategoryUncheckedUpdateWithoutProductsInput = {
@@ -24744,7 +24778,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    isDleted?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
@@ -25176,6 +25210,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     invoiceItems?: InvoiceItemCreateNestedManyWithoutProductInput
@@ -25190,6 +25225,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     invoiceItems?: InvoiceItemUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -25251,6 +25287,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     invoiceItems?: InvoiceItemUpdateManyWithoutProductNestedInput
@@ -25265,6 +25302,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     invoiceItems?: InvoiceItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -26040,6 +26078,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutProductsInput
     category: CategoryCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
@@ -26054,6 +26093,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -26121,6 +26161,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutProductsNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
@@ -26135,6 +26176,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -26458,6 +26500,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type OrderCreateManyRestaurantInput = {
@@ -26593,6 +26636,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     invoiceItems?: InvoiceItemUpdateManyWithoutProductNestedInput
@@ -26606,6 +26650,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     invoiceItems?: InvoiceItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -26618,6 +26663,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderUpdateWithoutRestaurantInput = {
@@ -27153,6 +27199,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type ProductUpdateWithoutCategoryInput = {
@@ -27161,6 +27208,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     invoiceItems?: InvoiceItemUpdateManyWithoutProductNestedInput
@@ -27174,6 +27222,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     invoiceItems?: InvoiceItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -27186,6 +27235,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderItemCreateManyProductInput = {
