@@ -244,4 +244,54 @@ describe('ProductsService', () => {
     });
     expect(prismaService.product.update).not.toHaveBeenCalled();
   });
+
+  it('logically deletes a product only when it belongs to the authenticated restaurant', async () => {
+    const existingProduct = {
+      id: 9,
+      restaurantId: 7,
+      isActive: true,
+      isDeleted: false,
+    };
+    const deletedProduct = {
+      ...existingProduct,
+      isActive: false,
+      isDeleted: true,
+    };
+
+    prismaService.product.findFirst.mockResolvedValue(existingProduct);
+    prismaService.product.update.mockResolvedValue(deletedProduct);
+
+    const result = await service.remove(9, 7);
+
+    expect(prismaService.product.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+        restaurantId: 7,
+      },
+    });
+    expect(prismaService.product.update).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+      },
+      data: {
+        isDeleted: true,
+        isActive: false,
+      },
+    });
+    expect(result).toEqual(deletedProduct);
+  });
+
+  it('rejects logical deletion when the product does not belong to the authenticated restaurant', async () => {
+    prismaService.product.findFirst.mockResolvedValue(null);
+
+    await expect(service.remove(9, 7)).rejects.toThrow(BadRequestException);
+
+    expect(prismaService.product.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+        restaurantId: 7,
+      },
+    });
+    expect(prismaService.product.update).not.toHaveBeenCalled();
+  });
 });

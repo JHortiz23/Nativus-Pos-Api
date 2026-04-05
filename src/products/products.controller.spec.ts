@@ -8,6 +8,7 @@ describe('ProductsController', () => {
     create: jest.Mock;
     findAll: jest.Mock;
     findAllCategories: jest.Mock;
+    remove: jest.Mock;
     update: jest.Mock;
   };
 
@@ -16,6 +17,7 @@ describe('ProductsController', () => {
       create: jest.fn(),
       findAll: jest.fn(),
       findAllCategories: jest.fn(),
+      remove: jest.fn(),
       update: jest.fn(),
     };
 
@@ -106,5 +108,17 @@ describe('ProductsController', () => {
       'Con tocineta',
       true,
     );
+  });
+
+  it('uses the authenticated restaurant when deleting a product logically', () => {
+    const request = {
+      user: {
+        restaurantId: 7,
+      },
+    };
+
+    controller.remove(request as never, 9);
+
+    expect(productsService.remove).toHaveBeenCalledWith(9, 7);
   });
 });

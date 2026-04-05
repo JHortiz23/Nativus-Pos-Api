@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -90,6 +91,16 @@ export class ProductsController {
       body.description,
       body.isActive,
     );
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a product logically' })
+  @ApiOkResponse({ description: 'Product deleted successfully' })
+  remove(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.productsService.remove(id, request.user.restaurantId);
   }
 }
 

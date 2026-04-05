@@ -130,4 +130,29 @@ export class ProductsService {
 
   }
 
+  async remove(id: number, restaurantId: number) {
+    const product = await this.prisma.product.findFirst({
+      where: {
+        id,
+        restaurantId,
+      },
+    });
+
+    if (!product) {
+      throw new BadRequestException(
+        'Product does not exist for the authenticated restaurant',
+      );
+    }
+
+    return this.prisma.product.update({
+      where: {
+        id,
+      },
+      data: {
+        isDeleted: true,
+        isActive: false,
+      },
+    });
+  }
+
 }
