@@ -4,7 +4,7 @@ import { GetProductsQueryDto } from './dto/get-products-query.dto';
 
 @Injectable()
 export class ProductsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   findAllCategories() {
     return this.prisma.category.findMany({
@@ -76,4 +76,54 @@ export class ProductsService {
       page_size: pageSize,
     };
   }
+
+  //Update product
+  async update(
+    id: number,
+    name?: string,
+    price?: number,
+    categoryId?: number,
+    description?: string | null,
+    isActive?: boolean,
+  ) {
+    // Check if the product exists
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!product) {
+      throw new BadRequestException('Product does not exist');
+    }
+
+    // Check if the category exists
+    if (categoryId) {
+      const category = await this.prisma.category.findUnique({
+        where: {
+          id: categoryId,
+        },
+      });
+
+      if (!category) {
+        throw new BadRequestException('Category does not exist');
+      }
+    }
+    
+    // Update the product with the new values, or keep the old values if not provided
+    return this.prisma.product.update({
+      where: {
+        id,
+      },
+      data: {
+        name: name ?? product.name,
+        price: price ?? product.price,
+        categoryId: categoryId ?? product.categoryId,
+        description: description ?? product.description,
+        isActive: isActive ?? product.isActive,
+      },
+    });
+
+  }
+
 }

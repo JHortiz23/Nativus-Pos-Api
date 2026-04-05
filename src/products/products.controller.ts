@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, Req } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -13,13 +13,14 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsQueryDto } from './dto/get-products-query.dto';
 import { PaginatedProductsResponseDto } from './dto/paginated-products-response.dto';
 import { ProductCategoryDto } from './dto/product-categories-response.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 type AuthenticatedRequest = Request & { user: AccessTokenPayload };
 
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) { }
 
   @Get('categories')
   @ApiOperation({ summary: 'List product categories' })
@@ -60,4 +61,25 @@ export class ProductsController {
   ) {
     return this.productsService.findAll(query, request.user.restaurantId);
   }
+
+  //Update product
+  @Put(':id')
+  @ApiOperation({ summary: 'Update a product' })
+  @ApiOkResponse({ description: 'Product updated successfully' })
+  update(
+    @Req() _request: AuthenticatedRequest,
+    @Body() body: UpdateProductDto,
+    @Query('id') id: number
+  ) {
+    return this.productsService.update(
+      id,
+      body.name,
+      body.price,
+      body.categoryId,
+      body.description,
+      body.isActive
+
+    );
+  }
 }
+
