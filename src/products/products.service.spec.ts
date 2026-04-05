@@ -13,7 +13,9 @@ describe('ProductsService', () => {
     product: {
       create: jest.Mock;
       count: jest.Mock;
+      findFirst: jest.Mock;
       findMany: jest.Mock;
+      update: jest.Mock;
     };
     $transaction: jest.Mock;
   };
@@ -27,7 +29,9 @@ describe('ProductsService', () => {
       product: {
         create: jest.fn(),
         count: jest.fn(),
+        findFirst: jest.fn(),
         findMany: jest.fn(),
+        update: jest.fn(),
       },
       $transaction: jest.fn(),
     };
@@ -175,5 +179,69 @@ describe('ProductsService', () => {
       page: 1,
       page_size: 100,
     });
+  });
+
+  it('updates a product only when it belongs to the authenticated restaurant', async () => {
+    const existingProduct = {
+      id: 9,
+      name: 'Hamburguesa',
+      price: 12.5,
+      categoryId: 3,
+      description: 'Clasica',
+      isActive: true,
+      restaurantId: 7,
+    };
+    const updatedProduct = {
+      ...existingProduct,
+      name: 'Hamburguesa doble',
+      price: 14.5,
+    };
+
+    prismaService.product.findFirst.mockResolvedValue(existingProduct);
+    prismaService.product.update.mockResolvedValue(updatedProduct);
+
+    const result = await service.update(
+      9,
+      7,
+      'Hamburguesa doble',
+      14.5,
+      undefined,
+      undefined,
+      undefined,
+    );
+
+    expect(prismaService.product.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+        restaurantId: 7,
+      },
+    });
+    expect(prismaService.product.update).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+      },
+      data: {
+        name: 'Hamburguesa doble',
+        price: 14.5,
+        categoryId: 3,
+        description: 'Clasica',
+        isActive: true,
+      },
+    });
+    expect(result).toEqual(updatedProduct);
+  });
+
+  it('rejects product update when the product does not belong to the authenticated restaurant', async () => {
+    prismaService.product.findFirst.mockResolvedValue(null);
+
+    await expect(service.update(9, 7)).rejects.toThrow(BadRequestException);
+
+    expect(prismaService.product.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+        restaurantId: 7,
+      },
+    });
+    expect(prismaService.product.update).not.toHaveBeenCalled();
   });
 });

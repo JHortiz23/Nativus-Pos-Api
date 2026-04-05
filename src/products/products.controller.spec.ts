@@ -8,6 +8,7 @@ describe('ProductsController', () => {
     create: jest.Mock;
     findAll: jest.Mock;
     findAllCategories: jest.Mock;
+    update: jest.Mock;
   };
 
   beforeEach(async () => {
@@ -15,6 +16,7 @@ describe('ProductsController', () => {
       create: jest.fn(),
       findAll: jest.fn(),
       findAllCategories: jest.fn(),
+      update: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -77,5 +79,32 @@ describe('ProductsController', () => {
     controller.findAll(request as never, query);
 
     expect(productsService.findAll).toHaveBeenCalledWith(query, 7);
+  });
+
+  it('uses the authenticated restaurant when updating a product', () => {
+    const request = {
+      user: {
+        restaurantId: 7,
+      },
+    };
+    const body = {
+      name: 'Hamburguesa doble',
+      price: 14.5,
+      categoryId: 4,
+      description: 'Con tocineta',
+      isActive: true,
+    };
+
+    controller.update(request as never, 9, body);
+
+    expect(productsService.update).toHaveBeenCalledWith(
+      9,
+      7,
+      'Hamburguesa doble',
+      14.5,
+      4,
+      'Con tocineta',
+      true,
+    );
   });
 });

@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Put, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+  Req,
+} from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -67,18 +77,18 @@ export class ProductsController {
   @ApiOperation({ summary: 'Update a product' })
   @ApiOkResponse({ description: 'Product updated successfully' })
   update(
-    @Req() _request: AuthenticatedRequest,
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateProductDto,
-    @Query('id') id: number
   ) {
     return this.productsService.update(
       id,
+      request.user.restaurantId,
       body.name,
       body.price,
       body.categoryId,
       body.description,
-      body.isActive
-
+      body.isActive,
     );
   }
 }

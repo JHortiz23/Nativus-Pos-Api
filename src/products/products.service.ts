@@ -80,24 +80,26 @@ export class ProductsService {
   //Update product
   async update(
     id: number,
+    restaurantId: number,
     name?: string,
     price?: number,
     categoryId?: number,
     description?: string | null,
     isActive?: boolean,
   ) {
-    // Check if the product exists
-    const product = await this.prisma.product.findUnique({
+    const product = await this.prisma.product.findFirst({
       where: {
         id,
+        restaurantId,
       },
     });
 
     if (!product) {
-      throw new BadRequestException('Product does not exist');
+      throw new BadRequestException(
+        'Product does not exist for the authenticated restaurant',
+      );
     }
 
-    // Check if the category exists
     if (categoryId) {
       const category = await this.prisma.category.findUnique({
         where: {
@@ -109,8 +111,7 @@ export class ProductsService {
         throw new BadRequestException('Category does not exist');
       }
     }
-    
-    // Update the product with the new values, or keep the old values if not provided
+
     return this.prisma.product.update({
       where: {
         id,
