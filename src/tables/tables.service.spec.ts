@@ -36,8 +36,19 @@ describe('TablesService', () => {
 
   it('returns active dining areas for the authenticated restaurant', async () => {
     const diningAreas = [
-      { id: 1, name: 'Salon principal', isActive: true },
-      { id: 2, name: 'Terraza', isActive: true },
+      {
+        id: 1,
+        name: 'Salon principal',
+        tables: [
+          { id: 1, name: 'Mesa 1', orders: [] },
+          { id: 2, name: 'Mesa 2', orders: [{ id: 10 }] },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Terraza',
+        tables: [{ id: 3, name: 'Mesa 3', orders: [] }],
+      },
     ];
     prismaService.diningArea.findMany.mockResolvedValue(diningAreas);
 
@@ -47,7 +58,27 @@ describe('TablesService', () => {
       select: {
         id: true,
         name: true,
-        isActive: true,
+        tables: {
+          select: {
+            id: true,
+            name: true,
+            orders: {
+              select: {
+                id: true,
+              },
+              where: {
+                status: {
+                  notIn: ['CANCELED', 'CLOSED'],
+                },
+              },
+              take: 1,
+            },
+          },
+          where: {
+            isActive: true,
+          },
+          orderBy: { id: 'asc' },
+        },
       },
       where: {
         restaurantId: 7,
@@ -55,6 +86,33 @@ describe('TablesService', () => {
       },
       orderBy: { id: 'asc' },
     });
-    expect(result).toEqual(diningAreas);
+    expect(result).toEqual({
+      summary: {
+        totalTables: 3,
+        availableTables: 2,
+        occupiedTables: 1,
+      },
+      diningAreas: [
+        {
+          id: 1,
+          name: 'Salon principal',
+          tablesCount: 2,
+          availableCount: 1,
+          occupiedCount: 1,
+          tables: [
+            { id: 1, name: 'Mesa 1', status: 'AVAILABLE', seats: null },
+            { id: 2, name: 'Mesa 2', status: 'OCCUPIED', seats: null },
+          ],
+        },
+        {
+          id: 2,
+          name: 'Terraza',
+          tablesCount: 1,
+          availableCount: 1,
+          occupiedCount: 0,
+          tables: [{ id: 3, name: 'Mesa 3', status: 'AVAILABLE', seats: null }],
+        },
+      ],
+    });
   });
 });
