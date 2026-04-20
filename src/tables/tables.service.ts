@@ -16,6 +16,7 @@ export class TablesService {
           select: {
             id: true,
             name: true,
+            isDeleted: true,
             orders: {
               select: {
                 id: true,
@@ -53,6 +54,7 @@ export class TablesService {
           name: table.name,
           status,
           seats: null,
+          isDeleted: table.isDeleted,
         };
       });
 

@@ -40,14 +40,14 @@ describe('TablesService', () => {
         id: 1,
         name: 'Salon principal',
         tables: [
-          { id: 1, name: 'Mesa 1', orders: [] },
-          { id: 2, name: 'Mesa 2', orders: [{ id: 10 }] },
+          { id: 1, name: 'Mesa 1', isDeleted: false, orders: [] },
+          { id: 2, name: 'Mesa 2', isDeleted: false, orders: [{ id: 10 }] },
         ],
       },
       {
         id: 2,
         name: 'Terraza',
-        tables: [{ id: 3, name: 'Mesa 3', orders: [] }],
+        tables: [{ id: 3, name: 'Mesa 3', isDeleted: false, orders: [] }],
       },
     ];
     prismaService.diningArea.findMany.mockResolvedValue(diningAreas);
@@ -62,6 +62,7 @@ describe('TablesService', () => {
           select: {
             id: true,
             name: true,
+            isDeleted: true,
             orders: {
               select: {
                 id: true,
@@ -100,8 +101,8 @@ describe('TablesService', () => {
           availableCount: 1,
           occupiedCount: 1,
           tables: [
-            { id: 1, name: 'Mesa 1', status: 'AVAILABLE', seats: null },
-            { id: 2, name: 'Mesa 2', status: 'OCCUPIED', seats: null },
+            { id: 1, name: 'Mesa 1', status: 'AVAILABLE', seats: null, isDeleted: false },
+            { id: 2, name: 'Mesa 2', status: 'OCCUPIED', seats: null, isDeleted: false },
           ],
         },
         {
@@ -110,7 +111,7 @@ describe('TablesService', () => {
           tablesCount: 1,
           availableCount: 1,
           occupiedCount: 0,
-          tables: [{ id: 3, name: 'Mesa 3', status: 'AVAILABLE', seats: null }],
+          tables: [{ id: 3, name: 'Mesa 3', status: 'AVAILABLE', seats: null, isDeleted: false }],
         },
       ],
     });

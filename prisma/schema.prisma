@@ -120,7 +120,9 @@ model Table {
   diningArea   DiningArea @relation(fields: [diningAreaId], references: [id])
 
   name      String // "Mesa 1"
+  seats     Int @default(0)
   isActive  Boolean  @default(true)
+  isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
 
   orders   Order[]
@@ -138,7 +140,7 @@ model Category {
   name      String
   createdAt DateTime  @default(now())
   isActive  Boolean   @default(true)
-  isDeleted  Boolean   @default(false)
+  isDeleted Boolean   @default(false)
   products  Product[]
 }
 
