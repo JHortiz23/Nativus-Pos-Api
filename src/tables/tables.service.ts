@@ -16,7 +16,10 @@ export class TablesService {
           select: {
             id: true,
             name: true,
+            isActive: true,
+            diningAreaId: true,
             isDeleted: true,
+            seats: true,
             orders: {
               select: {
                 id: true,
@@ -53,7 +56,9 @@ export class TablesService {
           id: table.id,
           name: table.name,
           status,
-          seats: null,
+          seats: table.seats,
+          diningAreaId: table.diningAreaId,
+          isActive: table.isActive,
           isDeleted: table.isDeleted,
         };
       });
@@ -127,5 +132,61 @@ export class TablesService {
       }
       throw error;
     }
+  }
+
+  // ** Update Table ** //
+  async update(
+    id: number,
+    restaurantId: number,
+    name?: string,
+    seats?: number,
+    diningAreaId?: number,
+    isActive?: boolean,
+  ) {
+    const table = await this.prisma.table.findFirst({
+      where: {
+        id,
+        restaurantId,
+      },
+    });
+
+    if (!table) {
+      throw new BadRequestException(
+        'Table does not exist for the authenticated restaurant',
+      );
+    }
+
+    if (diningAreaId) {
+      const diningArea = await this.prisma.diningArea.findUnique({
+        where: {
+          id: diningAreaId,
+          restaurantId: restaurantId,
+        },
+      });
+
+      if (!diningArea) {
+        throw new BadRequestException('Dining area does not exist for the authenticated restaurant');
+      }
+    }
+    try {
+      return await this.prisma.table.update({
+        where: {
+          id,
+        },
+        data: {
+          id: id,
+          name: name ?? table.name,
+          seats: seats ?? table.seats,
+          diningAreaId: diningAreaId ?? table.diningAreaId,
+          isActive: isActive ?? table.isActive,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('A table with this name already exists in this dining area');
+      }
+      throw error;
+    }
+
   }
 }

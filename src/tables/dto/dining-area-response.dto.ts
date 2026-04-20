@@ -18,6 +18,12 @@ export class TableSummaryResponseDto {
   @ApiProperty({ example: 4, nullable: true })
   seats: number | null;
 
+  @ApiProperty({ example: 8 })
+  diningAreaId: number;
+
+  @ApiProperty({ example: false })
+  isActive: boolean;
+
   @ApiProperty({ example: false })
   isDeleted: boolean;
 }
