@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { OrderStatus } from '../generated/prisma';
 import { PrismaService } from '../prisma/prisma.service';
 import { TableStatusDto } from './dto/dining-area-response.dto';
 
 @Injectable()
 export class TablesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async findAllDiningAreas(restaurantId: number) {
     const diningAreas = await this.prisma.diningArea.findMany({
@@ -90,5 +90,42 @@ export class TablesService {
       },
       diningAreas: mappedDiningAreas,
     };
+  }
+
+  // ** Create Table ** //
+  async create(
+    name: string,
+    seats: number,
+    diningAreaId: number,
+    restaurantId: number,
+    isActive?: boolean,
+  ) {
+    const diningArea = await this.prisma.diningArea.findFirst({
+      where: {
+        id: diningAreaId,
+        restaurantId,
+      },
+    });
+
+    if (!diningArea) {
+      throw new BadRequestException('Dining area does not exist');
+    }
+
+    try {
+      return await this.prisma.table.create({
+        data: {
+          name,
+          seats,
+          diningAreaId,
+          restaurantId,
+          isActive: isActive ?? true,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('A table with this name already exists in this dining area');
+      }
+      throw error;
+    }
   }
 }
