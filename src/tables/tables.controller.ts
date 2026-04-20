@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AccessTokenPayload } from '../auth/jwt-auth.guard';
@@ -57,6 +57,17 @@ export class TablesController {
       body.diningAreaId,
       body.isActive,
     );
+  }
+
+  // ** Delete Table (Soft Delete) ** //
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a table logically' })
+  @ApiOkResponse({ description: 'Table deleted successfully' })
+  remove(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.tablesService.remove(id, request.user.restaurantId);
   }
 
 }

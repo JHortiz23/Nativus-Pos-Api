@@ -33,7 +33,7 @@ export class TablesService {
             },
           },
           where: {
-            isActive: true,
+            isDeleted: false,
           },
           orderBy: { id: 'asc' },
         },
@@ -188,5 +188,31 @@ export class TablesService {
       throw error;
     }
 
+  }
+
+  async remove(id: number, restaurantId: number) {
+    const table = await this.prisma.table.findFirst({
+      where: {
+        id,
+        restaurantId,
+      },
+    });
+
+    if (!table) {
+      throw new BadRequestException(
+        'Table does not exist for the authenticated restaurant',
+      );
+    }
+
+    return this.prisma.table.update({
+      where: {
+        id,
+      },
+      data: {
+        isDeleted: true,
+        isActive: false,
+        name: `${table.name}_deleted_${Date.now()}`,
+      },
+    });
   }
 }
