@@ -35,6 +35,9 @@ export class DiningAreaResponseDto {
   @ApiProperty({ example: 'Main Dining Room' })
   name: string;
 
+  @ApiProperty({ example: true })
+  isActive: boolean;
+
   @ApiProperty({ example: 5 })
   tablesCount: number;
 

@@ -104,6 +104,7 @@ model DiningArea {
   name      String // "Salón 1", "Salón 2", "Terraza", "Barra 1", etc.
   createdAt DateTime @default(now())
   isActive  Boolean  @default(true)
+  isDeleted Boolean  @default(false)
 
   tables Table[]
 

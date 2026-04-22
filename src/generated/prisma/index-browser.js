@@ -155,7 +155,8 @@ exports.Prisma.DiningAreaScalarFieldEnum = {
   restaurantId: 'restaurantId',
   name: 'name',
   createdAt: 'createdAt',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.TableScalarFieldEnum = {

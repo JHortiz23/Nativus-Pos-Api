@@ -61,6 +61,7 @@ describe('TablesService', () => {
       {
         id: 1,
         name: 'Salon principal',
+        isActive: true,
         tables: [
           { id: 1, name: 'Mesa 1', isDeleted: false, isActive: true, diningAreaId: 1, orders: [] },
           { id: 2, name: 'Mesa 2', isDeleted: false, isActive: true, diningAreaId: 1, orders: [{ id: 10 }] },
@@ -69,6 +70,7 @@ describe('TablesService', () => {
       {
         id: 2,
         name: 'Terraza',
+        isActive: false,
         tables: [{ id: 3, name: 'Mesa 3', isDeleted: false, isActive: true, diningAreaId: 2, orders: [] }],
       },
     ];
@@ -80,6 +82,7 @@ describe('TablesService', () => {
       select: {
         id: true,
         name: true,
+        isActive: true,
         tables: {
           select: {
             id: true,
@@ -108,7 +111,7 @@ describe('TablesService', () => {
       },
       where: {
         restaurantId: 7,
-        isActive: true,
+        isDeleted: false,
       },
       orderBy: { id: 'asc' },
     });
@@ -122,6 +125,7 @@ describe('TablesService', () => {
         {
           id: 1,
           name: 'Salon principal',
+          isActive: true,
           tablesCount: 2,
           availableCount: 1,
           occupiedCount: 1,
@@ -133,6 +137,7 @@ describe('TablesService', () => {
         {
           id: 2,
           name: 'Terraza',
+          isActive: false,
           tablesCount: 1,
           availableCount: 1,
           occupiedCount: 0,

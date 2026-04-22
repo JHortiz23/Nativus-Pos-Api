@@ -28,7 +28,7 @@ export class TablesController {
   }
 
   @Post('diningarea')
-  @ApiOperation({ summary: 'Create a dining area' })
+  @ApiOperation({ summary: 'Create a dining area with tables' })
   @ApiCreatedResponse({ description: 'Dining area created successfully' })
   createDiningArea(
     @Req() request: AuthenticatedRequest,

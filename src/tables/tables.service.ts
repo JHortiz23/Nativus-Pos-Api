@@ -12,6 +12,7 @@ export class TablesService {
       select: {
         id: true,
         name: true,
+        isActive: true,
         tables: {
           select: {
             id: true,
@@ -40,7 +41,7 @@ export class TablesService {
       },
       where: {
         restaurantId,
-        isActive: true,
+        isDeleted: false,
       },
       orderBy: { id: 'asc' },
     });
@@ -71,6 +72,7 @@ export class TablesService {
       return {
         id: diningArea.id,
         name: diningArea.name,
+        isActive: diningArea.isActive,
         tablesCount,
         availableCount: tablesCount - occupiedCount,
         occupiedCount,

@@ -6201,6 +6201,7 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
+    isDeleted: boolean | null
   }
 
   export type DiningAreaMaxAggregateOutputType = {
@@ -6209,6 +6210,7 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     isActive: boolean | null
+    isDeleted: boolean | null
   }
 
   export type DiningAreaCountAggregateOutputType = {
@@ -6217,6 +6219,7 @@ export namespace Prisma {
     name: number
     createdAt: number
     isActive: number
+    isDeleted: number
     _all: number
   }
 
@@ -6237,6 +6240,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
   }
 
   export type DiningAreaMaxAggregateInputType = {
@@ -6245,6 +6249,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
   }
 
   export type DiningAreaCountAggregateInputType = {
@@ -6253,6 +6258,7 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     isActive?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -6348,6 +6354,7 @@ export namespace Prisma {
     name: string
     createdAt: Date
     isActive: boolean
+    isDeleted: boolean
     _count: DiningAreaCountAggregateOutputType | null
     _avg: DiningAreaAvgAggregateOutputType | null
     _sum: DiningAreaSumAggregateOutputType | null
@@ -6375,6 +6382,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     tables?: boolean | DiningArea$tablesArgs<ExtArgs>
     _count?: boolean | DiningAreaCountOutputTypeDefaultArgs<ExtArgs>
@@ -6386,6 +6394,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["diningArea"]>
 
@@ -6395,6 +6404,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["diningArea"]>
 
@@ -6404,9 +6414,10 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     isActive?: boolean
+    isDeleted?: boolean
   }
 
-  export type DiningAreaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantId" | "name" | "createdAt" | "isActive", ExtArgs["result"]["diningArea"]>
+  export type DiningAreaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantId" | "name" | "createdAt" | "isActive" | "isDeleted", ExtArgs["result"]["diningArea"]>
   export type DiningAreaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     restaurant?: boolean | RestaurantDefaultArgs<ExtArgs>
     tables?: boolean | DiningArea$tablesArgs<ExtArgs>
@@ -6431,6 +6442,7 @@ export namespace Prisma {
       name: string
       createdAt: Date
       isActive: boolean
+      isDeleted: boolean
     }, ExtArgs["result"]["diningArea"]>
     composites: {}
   }
@@ -6861,6 +6873,7 @@ export namespace Prisma {
     readonly name: FieldRef<"DiningArea", 'String'>
     readonly createdAt: FieldRef<"DiningArea", 'DateTime'>
     readonly isActive: FieldRef<"DiningArea", 'Boolean'>
+    readonly isDeleted: FieldRef<"DiningArea", 'Boolean'>
   }
     
 
@@ -18118,7 +18131,8 @@ export namespace Prisma {
     restaurantId: 'restaurantId',
     name: 'name',
     createdAt: 'createdAt',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    isDeleted: 'isDeleted'
   };
 
   export type DiningAreaScalarFieldEnum = (typeof DiningAreaScalarFieldEnum)[keyof typeof DiningAreaScalarFieldEnum]
@@ -18654,6 +18668,7 @@ export namespace Prisma {
     name?: StringFilter<"DiningArea"> | string
     createdAt?: DateTimeFilter<"DiningArea"> | Date | string
     isActive?: BoolFilter<"DiningArea"> | boolean
+    isDeleted?: BoolFilter<"DiningArea"> | boolean
     restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
     tables?: TableListRelationFilter
   }
@@ -18664,6 +18679,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
     restaurant?: RestaurantOrderByWithRelationInput
     tables?: TableOrderByRelationAggregateInput
   }
@@ -18678,6 +18694,7 @@ export namespace Prisma {
     name?: StringFilter<"DiningArea"> | string
     createdAt?: DateTimeFilter<"DiningArea"> | Date | string
     isActive?: BoolFilter<"DiningArea"> | boolean
+    isDeleted?: BoolFilter<"DiningArea"> | boolean
     restaurant?: XOR<RestaurantScalarRelationFilter, RestaurantWhereInput>
     tables?: TableListRelationFilter
   }, "id" | "restaurantId_name">
@@ -18688,6 +18705,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
     _count?: DiningAreaCountOrderByAggregateInput
     _avg?: DiningAreaAvgOrderByAggregateInput
     _max?: DiningAreaMaxOrderByAggregateInput
@@ -18704,6 +18722,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"DiningArea"> | string
     createdAt?: DateTimeWithAggregatesFilter<"DiningArea"> | Date | string
     isActive?: BoolWithAggregatesFilter<"DiningArea"> | boolean
+    isDeleted?: BoolWithAggregatesFilter<"DiningArea"> | boolean
   }
 
   export type TableWhereInput = {
@@ -19689,6 +19708,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutDiningAreasInput
     tables?: TableCreateNestedManyWithoutDiningAreaInput
   }
@@ -19699,6 +19719,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     tables?: TableUncheckedCreateNestedManyWithoutDiningAreaInput
   }
 
@@ -19706,6 +19727,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutDiningAreasNestedInput
     tables?: TableUpdateManyWithoutDiningAreaNestedInput
   }
@@ -19716,6 +19738,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     tables?: TableUncheckedUpdateManyWithoutDiningAreaNestedInput
   }
 
@@ -19725,12 +19748,14 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type DiningAreaUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type DiningAreaUncheckedUpdateManyInput = {
@@ -19739,6 +19764,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TableCreateInput = {
@@ -20829,6 +20855,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type DiningAreaAvgOrderByAggregateInput = {
@@ -20842,6 +20869,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type DiningAreaMinOrderByAggregateInput = {
@@ -20850,6 +20878,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type DiningAreaSumOrderByAggregateInput = {
@@ -23428,6 +23457,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     tables?: TableCreateNestedManyWithoutDiningAreaInput
   }
 
@@ -23436,6 +23466,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     tables?: TableUncheckedCreateNestedManyWithoutDiningAreaInput
   }
 
@@ -23709,6 +23740,7 @@ export namespace Prisma {
     name?: StringFilter<"DiningArea"> | string
     createdAt?: DateTimeFilter<"DiningArea"> | Date | string
     isActive?: BoolFilter<"DiningArea"> | boolean
+    isDeleted?: BoolFilter<"DiningArea"> | boolean
   }
 
   export type TableUpsertWithWhereUniqueWithoutRestaurantInput = {
@@ -24428,6 +24460,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
     restaurant: RestaurantCreateNestedOneWithoutDiningAreasInput
   }
 
@@ -24437,6 +24470,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type DiningAreaCreateOrConnectWithoutTablesInput = {
@@ -24579,6 +24613,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     restaurant?: RestaurantUpdateOneRequiredWithoutDiningAreasNestedInput
   }
 
@@ -24588,6 +24623,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderUpsertWithWhereUniqueWithoutTableInput = {
@@ -26572,6 +26608,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     isActive?: boolean
+    isDeleted?: boolean
   }
 
   export type TableCreateManyRestaurantInput = {
@@ -26677,6 +26714,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     tables?: TableUpdateManyWithoutDiningAreaNestedInput
   }
 
@@ -26685,6 +26723,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     tables?: TableUncheckedUpdateManyWithoutDiningAreaNestedInput
   }
 
@@ -26693,6 +26732,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TableUpdateWithoutRestaurantInput = {
