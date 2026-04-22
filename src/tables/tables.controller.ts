@@ -4,6 +4,7 @@ import { Request } from 'express';
 import { AccessTokenPayload } from '../auth/jwt-auth.guard';
 import { DiningAreasOverviewResponseDto } from './dto/dining-area-response.dto';
 import { TablesService } from './tables.service';
+import { CreateDiningAreaDto } from './dto/create-dining-area.dto';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
 
@@ -24,6 +25,22 @@ export class TablesController {
   })
   findAllDiningAreas(@Req() request: AuthenticatedRequest) {
     return this.tablesService.findAllDiningAreas(request.user.restaurantId);
+  }
+
+  @Post('diningarea')
+  @ApiOperation({ summary: 'Create a dining area' })
+  @ApiCreatedResponse({ description: 'Dining area created successfully' })
+  createDiningArea(
+    @Req() request: AuthenticatedRequest,
+    @Body() body: CreateDiningAreaDto,
+  ) {
+    return this.tablesService.createDiningArea(
+      body.name,
+      request.user.restaurantId,
+      body.isActive,
+      body.tables,
+      body.tableName,
+    );
   }
 
   // ** Create Table ** //

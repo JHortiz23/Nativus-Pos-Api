@@ -19,10 +19,10 @@ export class UpdateTableDto {
     @Min(1)
     diningAreaId?: number;
 
-    @ApiProperty({ example: 4, minimum: 1 })
+    @ApiProperty({ example: 4, minimum: 0 })
     @Type(() => Number)
     @IsInt()
-    @Min(1)
+    @Min(0)
     seats?: number;
 
     @ApiPropertyOptional({ example: true, default: true })

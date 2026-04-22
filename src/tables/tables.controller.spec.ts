@@ -6,6 +6,7 @@ describe('TablesController', () => {
   let controller: TablesController;
   let tablesService: {
     findAllDiningAreas: jest.Mock;
+    createDiningArea: jest.Mock;
     create: jest.Mock;
     update: jest.Mock;
     remove: jest.Mock;
@@ -14,6 +15,7 @@ describe('TablesController', () => {
   beforeEach(async () => {
     tablesService = {
       findAllDiningAreas: jest.fn(),
+      createDiningArea: jest.fn(),
       create: jest.fn(),
       update: jest.fn(),
       remove: jest.fn(),
@@ -46,6 +48,76 @@ describe('TablesController', () => {
     controller.findAllDiningAreas(request as never);
 
     expect(tablesService.findAllDiningAreas).toHaveBeenCalledWith(7);
+  });
+
+  describe('createDiningArea', () => {
+    it('creates a dining area for the authenticated restaurant', async () => {
+      const request = {
+        user: { restaurantId: 7 },
+      };
+      const body = {
+        name: 'Salon Principal',
+        isActive: true,
+      };
+
+      tablesService.createDiningArea.mockResolvedValue({
+        id: 1,
+        name: 'Salon Principal',
+        restaurantId: 7,
+        isActive: true,
+      });
+
+      const result = await controller.createDiningArea(request as never, body);
+
+      expect(tablesService.createDiningArea).toHaveBeenCalledWith(
+        'Salon Principal',
+        7,
+        true,
+        undefined,
+        undefined,
+      );
+      expect(result).toEqual({
+        id: 1,
+        name: 'Salon Principal',
+        restaurantId: 7,
+        isActive: true,
+      });
+    });
+
+    it('creates a dining area and requested tables for the authenticated restaurant', async () => {
+      const request = {
+        user: { restaurantId: 7 },
+      };
+      const body = {
+        name: 'Terraza',
+        isActive: true,
+        tables: 5,
+        tableName: 'mesa',
+      };
+
+      tablesService.createDiningArea.mockResolvedValue({
+        id: 2,
+        name: 'Terraza',
+        restaurantId: 7,
+        isActive: true,
+      });
+
+      const result = await controller.createDiningArea(request as never, body);
+
+      expect(tablesService.createDiningArea).toHaveBeenCalledWith(
+        'Terraza',
+        7,
+        true,
+        5,
+        'mesa',
+      );
+      expect(result).toEqual({
+        id: 2,
+        name: 'Terraza',
+        restaurantId: 7,
+        isActive: true,
+      });
+    });
   });
 
   describe('create', () => {

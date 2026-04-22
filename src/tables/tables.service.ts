@@ -97,6 +97,50 @@ export class TablesService {
     };
   }
 
+  async createDiningArea(
+    name: string,
+    restaurantId: number,
+    isActive?: boolean,
+    tables?: number,
+    tableName?: string,
+  ) {
+    const tablesToCreate = tables ?? 0;
+    const normalizedTableName = tableName?.trim() ? tableName.trim() : 'table';
+
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        const diningArea = await tx.diningArea.create({
+          data: {
+            name,
+            restaurantId,
+            isActive: isActive ?? true,
+          },
+        });
+
+        if (tablesToCreate > 0) {
+          const tablesData = Array.from({ length: tablesToCreate }, (_, index) => ({
+            name: `${normalizedTableName} #${index + 1}`,
+            restaurantId,
+            diningAreaId: diningArea.id,
+            isActive: true,
+          }));
+
+          await tx.table.createMany({
+            data: tablesData,
+          });
+        }
+
+        return diningArea;
+      });
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('A dining area with this name already exists in this restaurant');
+      }
+
+      throw error;
+    }
+  }
+
   // ** Create Table ** //
   async create(
     name: string,

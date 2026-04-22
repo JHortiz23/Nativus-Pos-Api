@@ -11,12 +11,15 @@ describe('TablesService', () => {
       findMany: jest.Mock;
       findFirst: jest.Mock;
       findUnique: jest.Mock;
+      create: jest.Mock;
     };
     table: {
       create: jest.Mock;
+      createMany: jest.Mock;
       findFirst: jest.Mock;
       update: jest.Mock;
     };
+    $transaction: jest.Mock;
   };
 
   beforeEach(async () => {
@@ -25,12 +28,15 @@ describe('TablesService', () => {
         findMany: jest.fn(),
         findFirst: jest.fn(),
         findUnique: jest.fn(),
+        create: jest.fn(),
       },
       table: {
         create: jest.fn(),
+        createMany: jest.fn(),
         findFirst: jest.fn(),
         update: jest.fn(),
       },
+      $transaction: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -133,6 +139,134 @@ describe('TablesService', () => {
           tables: [{ id: 3, name: 'Mesa 3', status: 'AVAILABLE', seats: undefined, diningAreaId: 2, isDeleted: false, isActive: true }],
         },
       ],
+    });
+  });
+
+  describe('createDiningArea', () => {
+    it('creates a dining area without tables when tables is not provided', async () => {
+      const createdDiningArea = {
+        id: 1,
+        name: 'Salon Principal',
+        restaurantId: 7,
+        isActive: true,
+      };
+
+      prismaService.$transaction.mockImplementation(async (callback: any) =>
+        callback({
+          diningArea: { create: prismaService.diningArea.create },
+          table: { createMany: prismaService.table.createMany },
+        }),
+      );
+      prismaService.diningArea.create.mockResolvedValue(createdDiningArea);
+
+      const result = await service.createDiningArea('Salon Principal', 7, true);
+
+      expect(prismaService.$transaction).toHaveBeenCalled();
+      expect(prismaService.diningArea.create).toHaveBeenCalledWith({
+        data: {
+          name: 'Salon Principal',
+          restaurantId: 7,
+          isActive: true,
+        },
+      });
+      expect(prismaService.table.createMany).not.toHaveBeenCalled();
+      expect(result).toEqual(createdDiningArea);
+    });
+
+    it('creates a dining area and tables using provided base name', async () => {
+      const createdDiningArea = {
+        id: 2,
+        name: 'Terraza',
+        restaurantId: 7,
+        isActive: true,
+      };
+
+      prismaService.$transaction.mockImplementation(async (callback: any) =>
+        callback({
+          diningArea: { create: prismaService.diningArea.create },
+          table: { createMany: prismaService.table.createMany },
+        }),
+      );
+      prismaService.diningArea.create.mockResolvedValue(createdDiningArea);
+
+      const result = await service.createDiningArea('Terraza', 7, true, 3, 'mesa');
+
+      expect(prismaService.diningArea.create).toHaveBeenCalledWith({
+        data: {
+          name: 'Terraza',
+          restaurantId: 7,
+          isActive: true,
+        },
+      });
+      expect(prismaService.table.createMany).toHaveBeenCalledWith({
+        data: [
+          {
+            name: 'mesa #1',
+            restaurantId: 7,
+            diningAreaId: 2,
+            isActive: true,
+          },
+          {
+            name: 'mesa #2',
+            restaurantId: 7,
+            diningAreaId: 2,
+            isActive: true,
+          },
+          {
+            name: 'mesa #3',
+            restaurantId: 7,
+            diningAreaId: 2,
+            isActive: true,
+          },
+        ],
+      });
+      expect(result).toEqual(createdDiningArea);
+    });
+
+    it('uses default base name when tableName is not provided', async () => {
+      const createdDiningArea = {
+        id: 3,
+        name: 'Patio',
+        restaurantId: 7,
+        isActive: true,
+      };
+
+      prismaService.$transaction.mockImplementation(async (callback: any) =>
+        callback({
+          diningArea: { create: prismaService.diningArea.create },
+          table: { createMany: prismaService.table.createMany },
+        }),
+      );
+      prismaService.diningArea.create.mockResolvedValue(createdDiningArea);
+
+      await service.createDiningArea('Patio', 7, true, 2);
+
+      expect(prismaService.table.createMany).toHaveBeenCalledWith({
+        data: [
+          {
+            name: 'table #1',
+            restaurantId: 7,
+            diningAreaId: 3,
+            isActive: true,
+          },
+          {
+            name: 'table #2',
+            restaurantId: 7,
+            diningAreaId: 3,
+            isActive: true,
+          },
+        ],
+      });
+    });
+
+    it('throws ConflictException on Prisma collision P2002', async () => {
+      const error = new Error('Collision');
+      (error as any).code = 'P2002';
+      prismaService.$transaction.mockRejectedValue(error);
+
+      await expect(service.createDiningArea('Terraza', 7)).rejects.toThrow(
+        ConflictException,
+      );
     });
   });
 

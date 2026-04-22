@@ -21,10 +21,10 @@ export class CreateTableDto {
     )
     name: string;
 
-    @ApiProperty({ example: 5, minimum: 1 })
+    @ApiProperty({ example: 5, minimum: 0 })
     @Type(() => Number)
     @IsInt()
-    @Min(1)
+    @Min(0)
     seats: number;
 
     @ApiProperty({ example: 2, minimum: 1 })
