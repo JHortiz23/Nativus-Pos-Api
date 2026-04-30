@@ -6,7 +6,7 @@ import { TableStatusDto } from './dto/dining-area-response.dto';
 @Injectable()
 export class TablesService {
   constructor(private readonly prisma: PrismaService) { }
-
+  // ** List all dining areas with their tables and summary ** //
   async findAllDiningAreas(restaurantId: number) {
     const diningAreas = await this.prisma.diningArea.findMany({
       select: {
@@ -99,6 +99,7 @@ export class TablesService {
     };
   }
 
+  // ** Create Dining Area with Tables ** //
   async createDiningArea(
     name: string,
     restaurantId: number,
@@ -142,6 +143,71 @@ export class TablesService {
       throw error;
     }
   }
+
+  // ** Delete Dining Area (Soft Delete) ** //
+  async removeDiningArea(id: number, restaurantId: number) {
+    const diningArea = await this.prisma.diningArea.findFirst({
+      where: {
+        id,
+        restaurantId,
+      },
+    });
+
+    if (!diningArea) {
+      throw new BadRequestException(
+        'Dining area does not exist for the authenticated restaurant',
+      );
+    }
+
+    return this.prisma.diningArea.update({
+      where: {
+        id,
+      },
+      data: {
+        isDeleted: true,
+        isActive: false,
+        name: `${diningArea.name}_deleted_${Date.now()}`,
+      },
+    });
+  }
+
+  // ** Update Dining Area ** //
+  async updateDiningArea(
+    id: number,
+    restaurantId: number,
+    name?: string,
+    isActive?: boolean,
+  ) {
+
+    const diningArea = await this.prisma.diningArea.findFirst({
+      where: {
+        id,
+        restaurantId,
+      },
+    });
+
+    if (!diningArea) {
+      throw new BadRequestException('Dining area does not exist for the authenticated restaurant');
+    }
+
+    try {
+      return await this.prisma.diningArea.update({
+        where: {
+          id,
+        },
+        data: {
+          name: name ?? diningArea.name,
+          isActive: isActive ?? diningArea.isActive,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('A dining area with this name already exists in this restaurant');
+      }
+      throw error;
+    }
+  }
+
 
   // ** Create Table ** //
   async create(
@@ -236,6 +302,7 @@ export class TablesService {
 
   }
 
+  // ** Delete Table (Soft Delete) ** //
   async remove(id: number, restaurantId: number) {
     const table = await this.prisma.table.findFirst({
       where: {

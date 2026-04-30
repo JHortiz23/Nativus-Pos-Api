@@ -12,6 +12,7 @@ describe('TablesService', () => {
       findFirst: jest.Mock;
       findUnique: jest.Mock;
       create: jest.Mock;
+      update: jest.Mock;
     };
     table: {
       create: jest.Mock;
@@ -29,6 +30,7 @@ describe('TablesService', () => {
         findFirst: jest.fn(),
         findUnique: jest.fn(),
         create: jest.fn(),
+        update: jest.fn(),
       },
       table: {
         create: jest.fn(),
@@ -270,6 +272,86 @@ describe('TablesService', () => {
       prismaService.$transaction.mockRejectedValue(error);
 
       await expect(service.createDiningArea('Terraza', 7)).rejects.toThrow(
+        ConflictException,
+      );
+    });
+  });
+
+  describe('removeDiningArea', () => {
+    it('throws BadRequestException if the dining area does not exist', async () => {
+      prismaService.diningArea.findFirst.mockResolvedValue(null);
+
+      await expect(service.removeDiningArea(10, 7)).rejects.toThrow(
+        BadRequestException,
+      );
+    });
+
+    it('soft deletes the dining area and renames it to prevent collisions', async () => {
+      jest.useFakeTimers().setSystemTime(new Date('2026-04-30T12:00:00Z').getTime());
+      
+      const existingDiningArea = {
+        id: 10,
+        name: 'Salon Principal',
+        restaurantId: 7,
+      };
+
+      prismaService.diningArea.findFirst.mockResolvedValue(existingDiningArea);
+
+      await service.removeDiningArea(10, 7);
+
+      expect(prismaService.diningArea.update).toHaveBeenCalledWith({
+        where: { id: 10 },
+        data: {
+          isDeleted: true,
+          isActive: false,
+          name: expect.stringMatching(/^Salon Principal_deleted_\d+/),
+        },
+      });
+
+      jest.useRealTimers();
+    });
+  });
+
+  describe('updateDiningArea', () => {
+    const existingDiningArea = {
+      id: 10,
+      name: 'Old Dining Area',
+      restaurantId: 7,
+      isActive: true,
+    };
+
+    it('throws BadRequestException if the dining area does not exist', async () => {
+      prismaService.diningArea.findFirst.mockResolvedValue(null);
+
+      await expect(service.updateDiningArea(10, 7)).rejects.toThrow(
+        BadRequestException,
+      );
+    });
+
+    it('updates fields correctly', async () => {
+      prismaService.diningArea.findFirst.mockResolvedValue(existingDiningArea);
+      prismaService.diningArea.update.mockResolvedValue({ ...existingDiningArea, name: 'New Name' });
+
+      const result = await service.updateDiningArea(10, 7, 'New Name', false);
+
+      expect(prismaService.diningArea.update).toHaveBeenCalledWith({
+        where: { id: 10 },
+        data: {
+          name: 'New Name',
+          isActive: false,
+        },
+      });
+      expect(result.name).toEqual('New Name');
+    });
+
+    it('throws ConflictException on Prisma collision P2002', async () => {
+      prismaService.diningArea.findFirst.mockResolvedValue(existingDiningArea);
+      
+      const error = new Error('Collision');
+      (error as any).code = 'P2002';
+      prismaService.diningArea.update.mockRejectedValue(error);
+
+      await expect(service.updateDiningArea(10, 7, 'Duplicate Name')).rejects.toThrow(
         ConflictException,
       );
     });

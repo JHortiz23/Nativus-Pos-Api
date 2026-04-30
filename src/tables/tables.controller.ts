@@ -7,6 +7,7 @@ import { TablesService } from './tables.service';
 import { CreateDiningAreaDto } from './dto/create-dining-area.dto';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
+import { UpdateDiningAreaDto } from './dto/update-dining-area.dto';
 
 type AuthenticatedRequest = Request & { user: AccessTokenPayload };
 
@@ -26,7 +27,7 @@ export class TablesController {
   findAllDiningAreas(@Req() request: AuthenticatedRequest) {
     return this.tablesService.findAllDiningAreas(request.user.restaurantId);
   }
-
+  // ** Create Dining Area with Tables ** //
   @Post('diningarea')
   @ApiOperation({ summary: 'Create a dining area with tables' })
   @ApiCreatedResponse({ description: 'Dining area created successfully' })
@@ -40,6 +41,34 @@ export class TablesController {
       body.isActive,
       body.tables,
       body.tableName,
+    );
+  }
+
+  // ** Delete Dining Area (Soft Delete) ** //
+  @Delete('diningarea/:id')
+  @ApiOperation({ summary: 'Delete a dining area logically' })
+  @ApiOkResponse({ description: 'Dining area deleted successfully' })
+  removeDiningArea(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.tablesService.removeDiningArea(id, request.user.restaurantId);
+  }
+
+  // ** Update Dining Area ** //
+  @Put('diningarea/:id')
+  @ApiOperation({ summary: 'Update a dining area' })
+  @ApiOkResponse({ description: 'Dining area updated successfully' })
+  updateDiningArea(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateDiningAreaDto,
+  ) {
+    return this.tablesService.updateDiningArea(
+      id,
+      request.user.restaurantId,
+      body.name,
+      body.isActive,
     );
   }
 
